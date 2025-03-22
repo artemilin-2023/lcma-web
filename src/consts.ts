@@ -5,6 +5,7 @@ export const SITE_DESCRIPTION = 'Персональный блог и портф
 // Настройки социальных сетей
 export const SOCIAL_LINKS = {
   mail: 'mailto:chimera@lcma.tech',
+  hh: "https://hh.ru/resume/bb1423d1ff0debe8820039ed1f374555367063",
   github: 'https://github.com/artemilin-2023',
   telegram: 'https://t.me/LightChimera'
 };
