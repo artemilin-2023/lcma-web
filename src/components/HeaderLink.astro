@@ -19,22 +19,42 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, '');
 		font-weight: 500;
 		text-decoration: none;
 		padding: 0.5rem 1rem;
-		border-radius: 5px;
+		border-radius: 15px;
 		position: relative;
 		transition: all 0.3s ease;
-		font-family: 'Poppins', sans-serif;
+		font-family: var(--font-accent);
+		letter-spacing: 0.5px;
 	}
 
 	.nav-link:hover {
 		text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
 		color: var(--neon-pink);
-		transform: translateY(-2px);
+		transform: translateY(-2px) scale(1.05);
+	}
+
+	.nav-link::after {
+		content: '✨';
+		position: absolute;
+		top: -8px;
+		right: -5px;
+		font-size: 0.7rem;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.nav-link:hover::after {
+		opacity: 1;
 	}
 
 	.nav-link.active {
-		border: 1px solid var(--neon-purple);
-		box-shadow: 0 0 5px var(--neon-purple), inset 0 0 5px var(--neon-purple);
-		text-shadow: 0 0 5px var(--neon-purple);
+		background: rgba(255, 158, 218, 0.1);
+		border: 1px solid var(--neon-pink);
+		box-shadow: 0 0 5px var(--neon-pink), inset 0 0 5px var(--neon-pink);
+		text-shadow: 0 0 5px var(--neon-pink);
+	}
+
+	.nav-link.active::after {
+		opacity: 1;
 	}
 
 	.nav-link span {

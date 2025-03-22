@@ -2,36 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { Image } from 'astro:assets';
+import AsciiBackground from '../components/AsciiBackground.astro';
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-	<div class="ascii-background">
-		<div class="ascii-particles"></div>
-		<div class="ascii-art">
-			<pre>
-       ／l、
-     （ﾟ､ ｡ ７
-      l  ~ヽ
-      じしf_,)ノ</pre>
-			<pre>
-     /\_/\  
-    ( o.o ) 
-     &gt; ^ &lt;</pre>
-			<pre>
-      /ᐠ｡ꞈ｡ᐟ\</pre>
-			<pre>
-     ∧,,,∧
-    ( ´･ω･)
-    (っ✿≧▽≦)</pre>
-		</div>
-	</div>
+	<AsciiBackground count={8} />
+	
 	<section class="hero" id="hero">
 		<div class="hero-content">
 			<div class="avatar-container">
 				<Image src="/images/placeholder-avatar.png" alt="Аватар" class="pulse-avatar" width={150} height={150} />
 			</div>
 			<h1 class="neon-text">Приветствую в <span class="gradient-text">{SITE_TITLE}</span></h1>
-			<p class="subtitle neon-text-flicker">Мой уголок аниме и творчества в сети</p>
+			<p class="subtitle neon-text-flicker">Мой nerd уголок в сети интернет</p>
 			<div class="hero-buttons">
 				<a href="/blog" class="neon-button">Мой блог</a>
 				<a href="/about" class="neon-button">Обо мне</a>
@@ -47,29 +30,25 @@ import { Image } from 'astro:assets';
 
 	<section class="features neon-box" id="features">
 		<h2 class="section-title gradient-text">Добро пожаловать!</h2>
-		<p>
-			Этот сайт создан с любовью к аниме, kawaii-эстетике и неоновым цветам!
-			Здесь вы найдете блог о моих любимых аниме, творческих проектах и многом другом.
+		<p class="feature-text">
+			Этот сайт создан с любовью к аниме, программированию, ascii-арту и неоновым цветам!
 		</p>
 		
 		<div class="feature-cards">
-			<div class="feature-card">
-				<div class="icon">✨</div>
-				<h3>Блог об аниме</h3>
-				<p>Обзоры, рецензии и размышления о моих любимых аниме-сериалах и фильмах</p>
-			</div>
-			
-			<div class="feature-card">
-				<div class="icon">🎨</div>
-				<h3>Арт-галерея</h3>
-				<p>Мои рисунки и иллюстрации в различных стилях, вдохновленные аниме</p>
-			</div>
-			
-			<div class="feature-card">
-				<div class="icon">💖</div>
-				<h3>Kawaii стиль</h3>
-				<p>Коллекция милых вещей, идей для творчества и вдохновения</p>
-			</div>
+				<div class="feature-card">
+					<a href="/blog" class="feature-card-link">
+						<div class="icon">✨</div>
+						<h3>Блог</h3>
+						<p>В этом разделе будут публикации о моих проектах, идеях, мыслях и многом другом</p>
+					</a>
+				</div>
+				<div class="feature-card">
+					<a href="/ascii-gallery" class="feature-card-link">
+						<div class="icon">🎨</div>
+						<h3>Ascii-арт галерея</h3>
+					<p>Просто красивые ascii-арты</p>
+				</div>
+			</a>
 		</div>
 		
 		<div class="scroll-to-section">
@@ -150,62 +129,6 @@ import { Image } from 'astro:assets';
 		pointer-events: none;
 	}
 
-	.ascii-particles {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		font-family: monospace;
-		font-size: 18px;
-		color: var(--neon-purple);
-		text-shadow: 0 0 5px var(--neon-purple);
-		perspective: 1000px;
-	}
-
-	.ascii-particles::before {
-		content: "⣿ ⢿ ⣻ ⣽ ⣾ ⣷ ⣶ ⣦ ⣤ ⣄ ⡀ ⠄ ⠂ ⠁ ⠈ ⠘ ⠠ ⠐ ⠑ ⠱ ⢰ ⣰ ⣀ ⣄ ⣦ ⣧ ⣷ ⣿ ⢿ ⣻ ⣽ ⢾ ⡿ ⣟ ⣯ ⣷ ⣿ ⢿ ⣻ ⢽ ⡯ ⣟ ⣿ ⢿ ⣯ ⣟ ⣾ ⣻ ⢿ ⡿ ⣟ ⣯ ⣷ ⣿ ⢿ ⣻ ⣽ ⣾ ⣷ ⣿ ⡿ ⣟ ⣯ ⣷ ⡾ ⣽ ⣿ ⢷ ⣫ ⣯ ⢿ ⣟ ⢽ ⢯ ⣻ ⣽ ⣾ ⡷ ⣻ ⢯ ⣷ ⣿ ⢿ ⣟ ⢽ ⡯ ⣿ ⢿ ⣻ ⣽ ⢽ ⣻ ⢿ ⣻ ⢽ ⡻ ⣽ ⢯ .. .. :: :: ;; :: '' `' `. ,, .. :: :: :: .. .. :: :: :: :: ++ ++ ++ ** ** ** ^^ ^^ ** ** __ -- __ -- ~~ ~~ -- ++ __ -- ** ++ ++ __ ~~ :: :: :: .. .. ´´ '' '' `` ,, .. :: // \\ || || || () {} [] || || || // \\ == == || || || || :: :: || || ||";
-		position: absolute;
-		display: block;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 300%;
-		white-space: pre-wrap;
-		word-break: break-all;
-		animation: asciiScroll 120s linear infinite, asciiFlicker 10s ease-in-out infinite alternate;
-		letter-spacing: 2px;
-		line-height: 1.3;
-	}
-
-	.ascii-particles::after {
-		content: "· · · · · · ▪ ▫ ◊ ◊ ◊ ◦ ○ ◎ ● ◌ ◍ ◎ ◌ ◆ ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ ▪ ▫ ▬ ▭ ▮ ▯ ▰ ▱ ▲ △ ▴ ▵ ▶ ▷ ▸ ▹ ► ▻ ▼ ▽ ▾ ▿ ◀ ◁ ◂ ◃ ◄ ◅ ◆ ◇ ◈ ◉ ◊ ○ ◌ ◍ ◎ ● ◐ ◑ ◒ ◓ ◔ ◕ ◖ ◗ ◘ ◙ ◚ ◛ ◜ ◝ ◞ ◟ ◠ ◡ ◢ ◣ ◤ ◥ ◦ ▱ ☖ ☗ ⦾ ⦿";
-		position: absolute;
-		display: block;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 300%;
-		white-space: pre-wrap;
-		word-break: break-all;
-		animation: asciiScroll 90s linear infinite reverse, asciiPulse 15s ease-in-out infinite alternate;
-		opacity: 0.7;
-		transform: translateY(50%);
-		color: var(--neon-pink);
-		text-shadow: 0 0 5px var(--neon-pink);
-		letter-spacing: 3px;
-		line-height: 1.5;
-	}
-
-	@keyframes asciiScroll {
-		0% {
-			transform: translateY(0);
-		}
-		100% {
-			transform: translateY(-50%);
-		}
-	}
-
 	/* Добавляем новую анимацию пульсации для ASCII-частиц */
 	@keyframes asciiPulse {
 		0%, 100% {
@@ -224,7 +147,6 @@ import { Image } from 'astro:assets';
 		scrollbar-color: var(--neon-purple) rgba(0, 0, 0, 0.3);
 	}
 
-	/* Кастомный скроллбар для WebKit (Chrome, Safari) */
 	::-webkit-scrollbar {
 		width: 8px;
 		background-color: rgba(0, 0, 0, 0.3);
@@ -261,11 +183,13 @@ import { Image } from 'astro:assets';
 	}
 	
 	.hero h1 {
+		font-family: var(--font-heading);
 		font-size: 3rem;
 		margin-bottom: 1rem;
 	}
 	
 	.subtitle {
+		font-family: var(--font-kawaii);
 		font-size: 1.5rem;
 		margin-bottom: 2rem;
 		opacity: 0.9;
@@ -320,9 +244,14 @@ import { Image } from 'astro:assets';
 	}
 	
 	.section-title {
+		font-family: var(--font-heading);
 		text-align: center;
 		margin-bottom: 2rem;
 		font-size: 2.2rem;
+	}
+
+	.feature-text {
+		text-align: center;
 	}
 	
 	.feature-cards {
@@ -330,6 +259,10 @@ import { Image } from 'astro:assets';
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: 2rem;
 		margin-top: 2rem;
+	}
+
+	.feature-card-link {
+		color: inherit;
 	}
 	
 	.feature-card {
@@ -352,6 +285,7 @@ import { Image } from 'astro:assets';
 	}
 	
 	.feature-card h3 {
+		font-family: var(--font-kawaii);
 		margin-bottom: 1rem;
 		font-size: 1.5rem;
 		color: var(--neon-pink);
@@ -373,6 +307,7 @@ import { Image } from 'astro:assets';
 	}
 	
 	.scroll-arrow span {
+		font-family: var(--font-alternative);
 		margin-bottom: 0.5rem;
 	}
 	
@@ -434,6 +369,7 @@ import { Image } from 'astro:assets';
 	}
 	
 	.card-content h3 {
+		font-family: var(--font-accent);
 		margin-bottom: 0.75rem;
 		color: var(--neon-blue);
 		text-shadow: 0 0 3px var(--neon-blue);
@@ -489,13 +425,7 @@ import { Image } from 'astro:assets';
 
 	.ascii-art {
 		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: flex-start;
-		padding: 5% 10%;
+		font-family: monospace;
 		color: var(--neon-pink);
 		font-size: 14px;
 		opacity: 0.7;
@@ -511,36 +441,71 @@ import { Image } from 'astro:assets';
 		font-weight: bold;
 	}
 
-	.ascii-art pre:nth-child(1) {
-		align-self: flex-start;
-		animation-delay: 0s;
+	/* Случайные позиции для ASCII-арт элементов */
+	.ascii-1 {
+		top: 15%;
+		left: 10%;
+		--rotation: -5deg;
+		transform: rotate(-5deg);
+		animation: floatingAscii 6s ease-in-out infinite alternate;
 	}
 
-	.ascii-art pre:nth-child(2) {
-		align-self: flex-end;
-		animation-delay: 1s;
+	.ascii-2 {
+		top: 35%;
+		right: 8%;
+		--rotation: 3deg;
+		transform: rotate(3deg);
+		animation: floatingAscii 8s ease-in-out infinite alternate-reverse;
 	}
 
-	.ascii-art pre:nth-child(3) {
-		align-self: center;
-		animation-delay: 2s;
+	.ascii-3 {
+		bottom: 25%;
+		left: 15%;
+		--rotation: -2deg;
+		transform: rotate(-2deg);
+		animation: floatingAscii 7s ease-in-out infinite alternate;
 	}
 
-	.ascii-art pre:nth-child(4) {
-		align-self: flex-start;
-		animation-delay: 3s;
+	.ascii-4 {
+		bottom: 15%;
+		right: 12%;
+		--rotation: 4deg;
+		transform: rotate(4deg);
+		animation: floatingAscii 9s ease-in-out infinite alternate-reverse;
 	}
-
-	.ascii-art pre:nth-child(5) {
-		align-self: flex-end;
-		animation-delay: 4s;
+	
+	.ascii-5 {
+		top: 60%;
+		left: 35%;
+		--rotation: -3deg;
+		transform: rotate(-3deg);
+		animation: floatingAscii 5s ease-in-out infinite alternate;
 	}
-
-	.ascii-art pre:nth-child(6) {
-		align-self: center;
-		animation-delay: 5s;
+	
+	.ascii-6 {
+		top: 20%;
+		right: 30%;
+		--rotation: 2deg;
+		transform: rotate(2deg);
+		animation: floatingAscii 7.5s ease-in-out infinite alternate-reverse;
 	}
-
+	
+	.ascii-7 {
+		top: 75%;
+		right: 25%;
+		--rotation: -1deg;
+		transform: rotate(-1deg);
+		animation: floatingAscii 5.5s ease-in-out infinite alternate;
+	}
+	
+	.ascii-8 {
+		top: 45%;
+		left: 25%;
+		--rotation: 5deg;
+		transform: rotate(5deg);
+		animation: floatingAscii 8.5s ease-in-out infinite alternate-reverse;
+	}
+	
 	@keyframes asciiFlicker {
 		0%, 5%, 10% {
 			opacity: 0.3;
@@ -550,6 +515,18 @@ import { Image } from 'astro:assets';
 		}
 		50%, 70% {
 			opacity: 0.5;
+		}
+	}
+
+	@keyframes floatingAscii {
+		0% {
+			transform: translate(0, 0) rotate(var(--rotation));
+		}
+		50% {
+			transform: translate(10px, -10px) rotate(var(--rotation));
+		}
+		100% {
+			transform: translate(-5px, 5px) rotate(var(--rotation));
 		}
 	}
 </style>

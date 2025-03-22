@@ -34,14 +34,6 @@ import { SOCIAL_LINKS } from '../consts';
 								</div>
 							</div>
 						</div>
-						
-						<div class="contact-item">
-							<div class="contact-icon">⏰</div>
-							<div class="contact-text">
-								<h3>Время ответа</h3>
-								<p>Обычно я отвечаю в течение 24-48 часов</p>
-							</div>
-						</div>
 					</div>
 				</div>
 				
@@ -65,11 +57,13 @@ import { SOCIAL_LINKS } from '../consts';
 	}
 	
 	.contact-hero h1 {
+		font-family: var(--font-heading);
 		font-size: 3rem;
 		margin-bottom: 1rem;
 	}
 	
 	.subtitle {
+		font-family: var(--font-kawaii);
 		font-size: 1.2rem;
 		opacity: 0.9;
 	}
@@ -94,6 +88,7 @@ import { SOCIAL_LINKS } from '../consts';
 	}
 	
 	.contact-card h2 {
+		font-family: var(--font-heading);
 		margin-bottom: 1.5rem;
 		text-align: center;
 	}
@@ -130,10 +125,10 @@ import { SOCIAL_LINKS } from '../consts';
 	}
 	
 	.contact-text h3 {
+		font-family: var(--font-kawaii);
 		margin: 0;
 		padding: 0;
 		color: var(--neon-pink);
-		margin-bottom: 0.5rem;
 	}
 	
 	.social-links {
@@ -142,6 +137,7 @@ import { SOCIAL_LINKS } from '../consts';
 	}
 	
 	.social-link {
+		font-family: var(--font-accent);
 		display: inline-block;
 		padding: 0.25rem 0.75rem;
 		border-radius: 3rem;
@@ -195,6 +191,11 @@ import { SOCIAL_LINKS } from '../consts';
 		border-width: 10px 10px 10px 0;
 		border-style: solid;
 		border-color: transparent var(--neon-pink) transparent transparent;
+	}
+	
+	.message-bubble p {
+		font-family: var(--font-handwritten);
+		font-size: 1.2rem;
 	}
 	
 	@media (max-width: 576px) {

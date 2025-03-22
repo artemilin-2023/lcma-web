@@ -118,8 +118,8 @@ import Layout from '../layouts/Layout.astro';
 		
 		<div class="contact-wrapper">
 			<p class="contact-text">
-				Если у вас есть вопросы, предложения или вы просто хотите поговорить об аниме,
-				не стесняйтесь связаться со мной через форму ниже или мои социальные сети!
+				Если у вас есть вопросы, предложения или вы просто хотите поговорить,
+				не стесняйтесь связаться со мной через мои социальные сети!
 			</p>
 			
 			<a href="/contact" class="neon-button">Перейти на страницу контактов</a>
@@ -149,15 +149,22 @@ import Layout from '../layouts/Layout.astro';
 	}
 	
 	.profile-title h1 {
+		font-family: var(--font-heading);
 		margin-bottom: 0.5rem;
 	}
 	
+	.profile-title p {
+		font-family: var(--font-kawaii);
+	}
+	
 	.profile-bio {
+		font-family: var(--font-alternative);
 		font-size: 1.1rem;
 		line-height: 1.8;
 	}
 	
 	.section-title {
+		font-family: var(--font-heading);
 		text-align: center;
 		margin-bottom: 2.5rem;
 		font-size: 2.2rem;
@@ -212,6 +219,7 @@ import Layout from '../layouts/Layout.astro';
 	}
 	
 	.timeline-content h3 {
+		font-family: var(--font-kawaii);
 		margin-bottom: 0.75rem;
 		color: var(--neon-blue);
 		text-shadow: 0 0 5px var(--neon-blue);
@@ -249,6 +257,7 @@ import Layout from '../layouts/Layout.astro';
 	}
 	
 	.interest-card h3 {
+		font-family: var(--font-kawaii);
 		margin-bottom: 0.75rem;
 		color: var(--neon-pink);
 		text-shadow: 0 0 3px var(--neon-pink);
@@ -265,6 +274,7 @@ import Layout from '../layouts/Layout.astro';
 	}
 	
 	.contact-text {
+		font-family: var(--font-alternative);
 		margin-bottom: 2rem;
 		font-size: 1.1rem;
 	}

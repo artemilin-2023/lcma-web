@@ -1,0 +1,155 @@
+---
+export interface Props {
+    variant?: number;
+    class?: string;
+    customArt?: string;
+    position?: {
+        top?: string;
+        left?: string;
+        right?: string;
+        bottom?: string;
+    };
+    rotation?: string;
+    animationDelay?: string;
+}
+
+const { 
+    variant = 1, 
+    class: className = "", 
+    customArt,
+    position = {},
+    rotation,
+    animationDelay
+} = Astro.props;
+
+const artCollection = [
+    `       ／l、
+     （ﾟ､ ｡ ７
+      l  ~ヽ
+      じしf_,)ノ`,
+    
+    `     /\\_/\\  
+    ( o.o ) 
+     > ^ <`,
+    
+    `/ᐠ｡ꞈ｡ᐟ\\`,
+    
+    `     ∧,,,∧
+    ( ´･ω･)
+    (っ✿≧▽≦)`,
+    
+    `ฅ^•ﻌ•^ฅ`,
+    
+    `				⠀⠀⠀⠀⢀⡠⠤⠔⢲⢶⡖⠒⠤⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+				⠀⠀⣠⡚⠁⢀⠀⠀⢄⢻⣿⠀⠀⠀⡙⣷⢤⡀⠀⠀⠀⠀⠀⠀
+				⠀⡜⢱⣇⠀⣧⢣⡀⠀⡀⢻⡇⠀⡄⢰⣿⣷⡌⣢⡀⠀⠀⠀⠀
+				⠸⡇⡎⡿⣆⠹⣷⡹⣄⠙⣽⣿⢸⣧⣼⣿⣿⣿⣶⣼⣆⠀⠀⠀
+				⣷⡇⣷⡇⢹⢳⡽⣿⡽⣷⡜⣿⣾⢸⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀
+				⣿⡇⡿⣿⠀⠣⠹⣾⣿⣮⠿⣞⣿⢸⣿⣛⢿⣿⡟⠯⠉⠙⠛⠓
+				⣿⣇⣷⠙⡇⠀⠁⠀⠉⣽⣷⣾⢿⢸⣿⠀⢸⣿⢿⠀⠀⠀⠀⠀
+				⡟⢿⣿⣷⣾⣆⠀⠀⠘⠘⠿⠛⢸⣼⣿⢖⣼⣿⠘⡆⠀⠀⠀⠀
+				⠃⢸⣿⣿⡘⠋⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⡆⠇⠀⠀⠀⠀
+				⠀⢸⡿⣿⣇⠀⠈⠀⠤⠀⠀⢀⣿⣿⣿⣿⣿⣿⣧⢸⠀⠀⠀⠀
+				⠀⠈⡇⣿⣿⣷⣤⣀⠀⣀⠔⠋⣿⣿⣿⣿⣿⡟⣿⡞⡄⠀⠀⠀
+				⠀⠀⢿⢸⣿⣿⣿⣿⣿⡇⠀⢠⣿⡏⢿⣿⣿⡇⢸⣇⠇⠀⠀⠀
+				⠀⠀⢸⡏⣿⣿⣿⠟⠋⣀⠠⣾⣿⠡⠀⢉⢟⠷⢼⣿⣿⠀⠀⠀
+				⠀⠀⠈⣷⡏⡱⠁⠀⠊⠀⠀⣿⣏⣀⡠⢣⠃⠀⠀⢹⣿⡄⠀⠀
+				⠀⠀⠘⢼⣿⠀⢠⣤⣀⠉⣹⡿⠀⠁⠀⡸⠀⠀⠀⠈⣿⡇⠀⠀`,
+    
+    `(⌒‿⌒)`,
+    
+    `(•ᴗ•)`,
+];
+
+// Выбираем арт из коллекции или используем пользовательский
+const artToDisplay = customArt || artCollection[variant - 1] || artCollection[0];
+
+// Фиксированные позиции для каждого варианта
+const positions = [
+    { top: "15%", left: "10%" },
+    { top: "35%", right: "8%" },
+    { top: "60%", left: "15%" },
+    { top: "25%", right: "12%" },
+    { top: "70%", left: "20%" },
+    { top: "20%", right: "25%" },
+    { top: "45%", left: "25%" },
+    { top: "80%", right: "15%" }
+];
+
+// Используем предопределённую позицию для варианта или указанную пользователем
+const posStyles = {
+    top: position.top || positions[variant - 1]?.top || "15%",
+    left: position.left || positions[variant - 1]?.left,
+    right: position.right || positions[variant - 1]?.right,
+    bottom: position.bottom || undefined,
+};
+
+// Фиксированные повороты для каждого варианта
+const rotations = ["-5deg", "3deg", "-2deg", "4deg", "-3deg", "2deg", "-1deg", "5deg"];
+const rot = rotation || rotations[variant - 1] || "0deg";
+
+// Фиксированные задержки анимации для каждого варианта
+const delays = ["0s", "0.5s", "1s", "1.5s", "0.8s", "1.2s", "0.3s", "0.7s"];
+const animDelay = animationDelay || delays[variant - 1] || "0s";
+
+// Фиксированные направления анимации
+const directions = ["alternate", "alternate-reverse", "alternate", "alternate-reverse", 
+                   "alternate", "alternate-reverse", "alternate", "alternate-reverse"];
+const animationDirection = directions[variant - 1] || "alternate";
+---
+
+<div class={`ascii-art ${className}`} style={`
+    top: ${posStyles.top};
+    ${posStyles.left ? `left: ${posStyles.left};` : ''}
+    ${posStyles.right ? `right: ${posStyles.right};` : ''}
+    ${posStyles.bottom ? `bottom: ${posStyles.bottom};` : ''}
+    --rotation: ${rot};
+    animation-delay: ${animDelay};
+    animation-direction: ${animationDirection};
+`}>
+    <pre>{artToDisplay}</pre>
+</div>
+
+<style>
+    .ascii-art {
+        position: absolute;
+        font-family: monospace;
+        color: var(--neon-pink);
+        font-size: 14px;
+        opacity: 0.7;
+        pointer-events: none;
+        z-index: 1;
+        animation: floatingAscii 8s ease-in-out infinite, asciiFlicker 8s ease-in-out infinite;
+    }
+
+    .ascii-art pre {
+        margin: 0;
+        transform: scale(1);
+        text-shadow: 0 0 8px var(--neon-pink);
+        font-weight: bold;
+    }
+
+    @keyframes asciiFlicker {
+        0%, 5%, 10% {
+            opacity: 0.3;
+        }
+        2%, 8%, 15%, 25%, 30%, 100% {
+            opacity: 0.8;
+        }
+        50%, 70% {
+            opacity: 0.5;
+        }
+    }
+
+    @keyframes floatingAscii {
+        0% {
+            transform: translate(0, 0) rotate(var(--rotation));
+        }
+        50% {
+            transform: translate(10px, -10px) rotate(var(--rotation));
+        }
+        100% {
+            transform: translate(-5px, 5px) rotate(var(--rotation));
+        }
+    }
+</style> 
