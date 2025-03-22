@@ -46,9 +46,9 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 					<a href="/ascii-gallery" class="feature-card-link">
 						<div class="icon">🎨</div>
 						<h3>Ascii-арт галерея</h3>
-					<p>Просто красивые ascii-арты</p>
+						<p>Просто красивые ascii-арты</p>
+					</a>
 				</div>
-			</a>
 		</div>
 		
 		<div class="scroll-to-section">
@@ -71,8 +71,8 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 					<Image src="/blog-placeholder-1.jpg" alt="Блог 1" width={800} height={450} />
 				</div>
 				<div class="card-content">
-					<h3>Мое знакомство с аниме</h3>
-					<p>Рассказываю о том, как я познакомился с миром аниме и что это для меня значит</p>
+					<h3>Овсянка</h3>
+					<p>Привет, спишь?</p>
 					<span class="read-more">Читать подробнее →</span>
 				</div>
 			</a>
@@ -83,7 +83,7 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 				</div>
 				<div class="card-content">
 					<h3>Топ-5 kawaii персонажей</h3>
-					<p>Подборка самых милых персонажей из разных аниме-сериалов</p>
+					<p>Илюха, Егор, Даня, Дима и прочие эксперты</p>
 					<span class="read-more">Читать подробнее →</span>
 				</div>
 			</a>
@@ -93,8 +93,8 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 					<Image src="/blog-placeholder-3.jpg" alt="Блог 3" width={800} height={450} />
 				</div>
 				<div class="card-content">
-					<h3>Мой опыт рисования в стиле аниме</h3>
-					<p>Делюсь советами и опытом создания иллюстраций в аниме-стиле</p>
+					<h3>Паттерн докер билдер 🐋</h3>
+					<p>Как сделать докер билдер и при этом не умереть</p>
 					<span class="read-more">Читать подробнее →</span>
 				</div>
 			</a>
@@ -174,6 +174,8 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 	
 	.avatar-container {
 		margin-bottom: 2rem;
+		display: flex;
+		justify-content: center;
 	}
 	
 	.pulse-avatar {
@@ -259,10 +261,13 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: 2rem;
 		margin-top: 2rem;
+		justify-items: center;
 	}
 
 	.feature-card-link {
 		color: inherit;
+		display: block;
+		width: 100%;
 	}
 	
 	.feature-card {
@@ -272,6 +277,8 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 		backdrop-filter: blur(5px);
 		transition: all 0.3s ease;
 		border: 1px solid rgba(138, 43, 226, 0.3);
+		width: 100%;
+		max-width: 90%;
 	}
 	
 	.feature-card:hover {
