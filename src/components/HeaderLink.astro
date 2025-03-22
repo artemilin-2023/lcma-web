@@ -4,21 +4,41 @@ import type { HTMLAttributes } from 'astro/types';
 type Props = HTMLAttributes<'a'>;
 
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+
+const { pathname } = Astro.url;
+const isActive = href === pathname || href === pathname.replace(/\/$/, '');
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
+<a href={href} class:list={[className, { active: isActive }, 'nav-link']} {...props}>
+	<span><slot /></span>
 </a>
+
 <style>
-	a {
-		display: inline-block;
+	.nav-link {
+		color: #fff;
+		font-weight: 500;
 		text-decoration: none;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		position: relative;
+		transition: all 0.3s ease;
+		font-family: 'Poppins', sans-serif;
 	}
-	a.active {
-		font-weight: bolder;
-		text-decoration: underline;
+
+	.nav-link:hover {
+		text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+		color: var(--neon-pink);
+		transform: translateY(-2px);
+	}
+
+	.nav-link.active {
+		border: 1px solid var(--neon-purple);
+		box-shadow: 0 0 5px var(--neon-purple), inset 0 0 5px var(--neon-purple);
+		text-shadow: 0 0 5px var(--neon-purple);
+	}
+
+	.nav-link span {
+		position: relative;
+		z-index: 1;
 	}
 </style>

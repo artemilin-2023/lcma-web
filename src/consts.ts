@@ -1,5 +1,10 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+// Метаданные сайта
+export const SITE_TITLE = 'lcma.tech';
+export const SITE_DESCRIPTION = 'Персональный блог и портфолио в стиле kawaii с неоновыми акцентами. Аниме, творчество и веб-разработка.';
 
-export const SITE_TITLE = 'Astro Blog';
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+// Настройки социальных сетей
+export const SOCIAL_LINKS = {
+  mail: 'mailto:chimera@lcma.tech',
+  github: 'https://github.com/artemilin-2023',
+  telegram: 'https://t.me/LightChimera'
+};

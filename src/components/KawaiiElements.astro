@@ -1,0 +1,129 @@
+---
+// Компонент для добавления декоративных kawaii элементов на страницу
+---
+
+<div class="kawaii-elements">
+  <!-- Звездочки -->
+  <div class="kawaii-element star star-1">★</div>
+  <div class="kawaii-element star star-2">✦</div>
+  <div class="kawaii-element star star-3">✧</div>
+  <div class="kawaii-element star star-4">⋆</div>
+  <div class="kawaii-element star star-5">✦</div>
+  
+  <!-- Сердечки -->
+  <div class="kawaii-element heart heart-1">♡</div>
+  <div class="kawaii-element heart heart-2">♥</div>
+  <div class="kawaii-element heart heart-3">❤</div>
+  
+  <!-- Эмодзи -->
+  <div class="kawaii-element emoji emoji-1">✨</div>
+  <div class="kawaii-element emoji emoji-2">🌸</div>
+  <div class="kawaii-element emoji emoji-3">🌟</div>
+  <div class="kawaii-element emoji emoji-4">🎀</div>
+</div>
+
+<style>
+  .kawaii-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+  
+  .kawaii-element {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+  
+  .star {
+    color: var(--neon-purple);
+    text-shadow: 0 0 5px var(--neon-purple);
+  }
+  
+  .heart {
+    color: var(--neon-pink);
+    text-shadow: 0 0 5px var(--neon-pink);
+  }
+  
+  .emoji {
+    font-size: 1.2rem;
+  }
+  
+  /* Позиции элементов */
+  .star-1 {
+    top: 10%;
+    left: 5%;
+    animation: floatingAnimation 4s ease-in-out infinite, neonFlicker 5s infinite alternate;
+  }
+  
+  .star-2 {
+    top: 30%;
+    left: 15%;
+    animation: floatingAnimation 6s ease-in-out infinite, neonFlicker 7s infinite alternate;
+  }
+  
+  .star-3 {
+    top: 70%;
+    left: 80%;
+    animation: floatingAnimation 5s ease-in-out infinite, neonFlicker 6s infinite alternate;
+  }
+  
+  .star-4 {
+    top: 20%;
+    left: 90%;
+    animation: floatingAnimation 7s ease-in-out infinite, neonFlicker 4s infinite alternate;
+  }
+  
+  .star-5 {
+    top: 85%;
+    left: 25%;
+    animation: floatingAnimation 5s ease-in-out infinite, neonFlicker 8s infinite alternate;
+  }
+  
+  .heart-1 {
+    top: 15%;
+    left: 60%;
+    animation: floatingAnimation 5s ease-in-out infinite;
+  }
+  
+  .heart-2 {
+    top: 45%;
+    left: 10%;
+    animation: floatingAnimation 7s ease-in-out infinite;
+  }
+  
+  .heart-3 {
+    top: 65%;
+    left: 70%;
+    animation: floatingAnimation 6s ease-in-out infinite;
+  }
+  
+  .emoji-1 {
+    top: 25%;
+    left: 40%;
+    animation: floatingAnimation 4s ease-in-out infinite;
+  }
+  
+  .emoji-2 {
+    top: 55%;
+    left: 30%;
+    animation: floatingAnimation 8s ease-in-out infinite;
+  }
+  
+  .emoji-3 {
+    top: 80%;
+    left: 50%;
+    animation: floatingAnimation 6s ease-in-out infinite;
+  }
+  
+  .emoji-4 {
+    top: 35%;
+    left: 75%;
+    animation: floatingAnimation 5s ease-in-out infinite;
+  }
+</style> 

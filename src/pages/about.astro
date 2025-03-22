@@ -1,62 +1,292 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<Layout title="Обо мне | Kawaii Neon Dreams" description="Узнайте больше обо мне, моих интересах и творчестве">
+	<section class="about-hero">
+		<div class="profile-card neon-box">
+			<div class="profile-header">
+				<div class="profile-img-container">
+					<img src="/placeholder-avatar.png" alt="Мой аватар" class="pulse-avatar" width="150" height="150" />
+				</div>
+				<div class="profile-title">
+					<h1 class="gradient-text">Немного обо мне</h1>
+					<p class="neon-text">Аниме-энтузиаст, веб-разработчик и творческая личность ✨</p>
+				</div>
+			</div>
+			
+			<div class="profile-bio">
+				<p>
+					Привет! Меня зовут [Ваше имя], и я рад приветствовать вас на моем персональном сайте.
+					Я создал этот уголок интернета, чтобы делиться своей любовью к аниме, kawaii-эстетике
+					и творческим проектам. Присоединяйтесь ко мне в этом путешествии!
+				</p>
+			</div>
+		</div>
+	</section>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+	<section class="timeline-section">
+		<h2 class="section-title gradient-text">Мой путь</h2>
+		
+		<div class="timeline">
+			<div class="timeline-item">
+				<div class="timeline-dot"></div>
+				<div class="timeline-content neon-box">
+					<h3>2018</h3>
+					<p>Начал свой путь в мире аниме после просмотра "Твоё имя"</p>
+				</div>
+			</div>
+			
+			<div class="timeline-item">
+				<div class="timeline-dot"></div>
+				<div class="timeline-content neon-box">
+					<h3>2019</h3>
+					<p>Начал изучать японский язык и увлекся косплеем</p>
+				</div>
+			</div>
+			
+			<div class="timeline-item">
+				<div class="timeline-dot"></div>
+				<div class="timeline-content neon-box">
+					<h3>2020</h3>
+					<p>Посетил свой первый аниме-фестиваль и начал коллекционировать фигурки</p>
+				</div>
+			</div>
+			
+			<div class="timeline-item">
+				<div class="timeline-dot"></div>
+				<div class="timeline-content neon-box">
+					<h3>2021</h3>
+					<p>Начал вести блог о моих любимых аниме и делиться своими рисунками</p>
+				</div>
+			</div>
+			
+			<div class="timeline-item">
+				<div class="timeline-dot"></div>
+				<div class="timeline-content neon-box">
+					<h3>2022</h3>
+					<p>Создал этот сайт, чтобы лучше организовать свой контент и делиться им с миром</p>
+				</div>
+			</div>
+		</div>
+	</section>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+	<section class="interests-section neon-box">
+		<h2 class="section-title gradient-text">Мои интересы</h2>
+		
+		<div class="interests-grid">
+			<div class="interest-card">
+				<div class="interest-icon">🎌</div>
+				<h3>Аниме</h3>
+				<p>Обожаю смотреть и обсуждать аниме разных жанров, особенно сёнэн и сэйнэн</p>
+			</div>
+			
+			<div class="interest-card">
+				<div class="interest-icon">🎨</div>
+				<h3>Рисование</h3>
+				<p>Изучаю аниме-стиль рисования и цифровую иллюстрацию</p>
+			</div>
+			
+			<div class="interest-card">
+				<div class="interest-icon">💻</div>
+				<h3>Веб-разработка</h3>
+				<p>Создаю сайты и интерактивные проекты, связанные с аниме и японской культурой</p>
+			</div>
+			
+			<div class="interest-card">
+				<div class="interest-icon">🎮</div>
+				<h3>Японские игры</h3>
+				<p>Увлекаюсь визуальными новеллами, JRPG и играми по мотивам аниме</p>
+			</div>
+			
+			<div class="interest-card">
+				<div class="interest-icon">🗣️</div>
+				<h3>Японский язык</h3>
+				<p>Изучаю японский, чтобы лучше понимать аниме и мангу без перевода</p>
+			</div>
+			
+			<div class="interest-card">
+				<div class="interest-icon">🎭</div>
+				<h3>Косплей</h3>
+				<p>Создаю костюмы и перевоплощаюсь в любимых персонажей аниме</p>
+			</div>
+		</div>
+	</section>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
-
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
+	<section class="contact-section">
+		<h2 class="section-title gradient-text">Свяжитесь со мной</h2>
+		
+		<div class="contact-wrapper">
+			<p class="contact-text">
+				Если у вас есть вопросы, предложения или вы просто хотите поговорить об аниме,
+				не стесняйтесь связаться со мной через форму ниже или мои социальные сети!
+			</p>
+			
+			<a href="/contact" class="neon-button">Перейти на страницу контактов</a>
+		</div>
+	</section>
 </Layout>
+
+<style>
+	.about-hero {
+		padding: 2rem 0;
+		margin-bottom: 3rem;
+	}
+	
+	.profile-card {
+		padding: 2rem;
+	}
+	
+	.profile-header {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		margin-bottom: 2rem;
+	}
+	
+	.profile-img-container {
+		flex-shrink: 0;
+	}
+	
+	.profile-title h1 {
+		margin-bottom: 0.5rem;
+	}
+	
+	.profile-bio {
+		font-size: 1.1rem;
+		line-height: 1.8;
+	}
+	
+	.section-title {
+		text-align: center;
+		margin-bottom: 2.5rem;
+		font-size: 2.2rem;
+	}
+	
+	.timeline-section {
+		margin: 4rem 0;
+	}
+	
+	.timeline {
+		position: relative;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	
+	.timeline::before {
+		content: '';
+		position: absolute;
+		height: 100%;
+		width: 2px;
+		background: var(--neon-purple);
+		left: 50%;
+		transform: translateX(-50%);
+		box-shadow: 0 0 8px var(--neon-purple);
+	}
+	
+	.timeline-item {
+		position: relative;
+		margin-bottom: 2.5rem;
+	}
+	
+	.timeline-dot {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: var(--neon-pink);
+		box-shadow: 0 0 10px var(--neon-pink);
+		z-index: 10;
+	}
+	
+	.timeline-content {
+		width: calc(50% - 40px);
+		padding: 1.5rem;
+		position: relative;
+	}
+	
+	.timeline-item:nth-child(odd) .timeline-content {
+		margin-left: auto;
+	}
+	
+	.timeline-content h3 {
+		margin-bottom: 0.75rem;
+		color: var(--neon-blue);
+		text-shadow: 0 0 5px var(--neon-blue);
+	}
+	
+	.interests-section {
+		padding: 2.5rem;
+		margin: 4rem 0;
+	}
+	
+	.interests-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+	
+	.interest-card {
+		text-align: center;
+		padding: 1.5rem;
+		border-radius: 0.5rem;
+		background: rgba(45, 0, 100, 0.3);
+		border: 1px solid rgba(138, 43, 226, 0.3);
+		transition: all 0.3s ease;
+	}
+	
+	.interest-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 0 8px var(--neon-purple);
+	}
+	
+	.interest-icon {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+	
+	.interest-card h3 {
+		margin-bottom: 0.75rem;
+		color: var(--neon-pink);
+		text-shadow: 0 0 3px var(--neon-pink);
+	}
+	
+	.contact-section {
+		margin: 4rem 0;
+		text-align: center;
+	}
+	
+	.contact-wrapper {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
+	.contact-text {
+		margin-bottom: 2rem;
+		font-size: 1.1rem;
+	}
+	
+	@media (max-width: 768px) {
+		.profile-header {
+			flex-direction: column;
+			text-align: center;
+			gap: 1rem;
+		}
+		
+		.timeline::before {
+			left: 30px;
+		}
+		
+		.timeline-dot {
+			left: 30px;
+		}
+		
+		.timeline-content {
+			width: calc(100% - 60px);
+			margin-left: 60px !important;
+		}
+	}
+</style>

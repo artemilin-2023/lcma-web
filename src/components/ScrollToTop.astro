@@ -1,0 +1,67 @@
+---
+// Компонент кнопки прокрутки страницы наверх
+---
+
+<button id="scroll-to-top" class="scroll-to-top" aria-label="Прокрутить наверх">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<style>
+  .scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--dark-purple);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--neon-purple);
+    box-shadow: 0 0 8px var(--neon-purple);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.5s ease;
+    z-index: 100;
+  }
+
+  .scroll-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-to-top:hover {
+    background-color: var(--neon-purple);
+    box-shadow: 0 0 15px var(--neon-purple);
+    transform: translateY(-5px);
+  }
+</style>
+
+<script>
+  // Показать/скрыть кнопку в зависимости от позиции прокрутки
+  const scrollToTopButton = document.getElementById('scroll-to-top');
+  
+  function toggleScrollButton() {
+    if (window.scrollY > 300) {
+      scrollToTopButton?.classList.add('visible');
+    } else {
+      scrollToTopButton?.classList.remove('visible');
+    }
+  }
+
+  // Обработчик нажатия на кнопку
+  scrollToTopButton?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Слушатель события прокрутки
+  window.addEventListener('scroll', toggleScrollButton);
+</script> 

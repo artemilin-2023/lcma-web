@@ -4,18 +4,27 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Montserrat:wght@300;400;500;700&display=swap');
+
+/* Удаляем плавный скроллинг со всей страницы, чтобы колесико мыши работало нормально */
+/* Плавную прокрутку будем применять только для якорных ссылок через JS */
+
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+	--neon-purple: #B388FF;
+	--neon-pink: #FF9EDA;
+	--neon-blue: #8EBBFF;
+	--dark-purple: #37248F;
+	--dark-blue: #1A092D;
+	--accent-pink: #E880FC;
+	--bg-gradient: linear-gradient(135deg, var(--dark-purple) 0%, var(--dark-blue) 100%);
+	--box-shadow: 0 4px 20px rgba(179, 136, 255, 0.5);
+	--text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);
 }
+
 @font-face {
 	font-family: 'Atkinson';
 	src: url('/fonts/atkinson-regular.woff') format('woff');
@@ -30,109 +39,200 @@
 	font-style: normal;
 	font-display: swap;
 }
+
+@keyframes neonFlicker {
+	0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+		text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
+	}
+	20%, 24%, 55% {
+		text-shadow: none;
+	}
+}
+
+@keyframes neonPulse {
+	0% {
+		filter: drop-shadow(0 0 2px var(--neon-purple)) drop-shadow(0 0 4px var(--neon-purple));
+	}
+	50% {
+		filter: drop-shadow(0 0 5px var(--neon-purple)) drop-shadow(0 0 10px var(--neon-purple));
+	}
+	100% {
+		filter: drop-shadow(0 0 2px var(--neon-purple)) drop-shadow(0 0 4px var(--neon-purple));
+	}
+}
+
+@keyframes floatingAnimation {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
 body {
-	font-family: 'Atkinson', sans-serif;
+	font-family: 'Poppins', 'Atkinson', sans-serif;
 	margin: 0;
 	padding: 0;
-	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
+	background: var(--bg-gradient);
+	color: #fff;
+	min-height: 100vh;
+	font-size: 18px;
 	line-height: 1.7;
+	overflow-x: hidden;
 }
+
+/* Добавляем глобальные стили для прокрутки на всех страницах */
+html, body {
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--neon-purple) rgba(0, 0, 0, 0.3);
+}
+
+/* Кастомный скроллбар для WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+	width: 8px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background-color: var(--neon-purple);
+	box-shadow: 0 0 5px var(--neon-purple);
+}
+
+::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.kawaii-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.kawaii-element {
+	position: absolute;
+	pointer-events: none;
+	animation: floatingAnimation 3s ease-in-out infinite;
+}
+
+.neon-text {
+	color: #fff;
+	text-shadow: var(--text-shadow);
+}
+
+.neon-text-flicker {
+	color: #fff;
+	animation: neonFlicker 3s infinite alternate;
+}
+
+.neon-box {
+	border: 2px solid var(--neon-purple);
+	box-shadow: 0 0 8px var(--neon-purple), inset 0 0 8px var(--neon-purple);
+	border-radius: 0.5rem;
+	padding: 1rem;
+	transition: all 0.3s ease;
+}
+
+.neon-box:hover {
+	box-shadow: 0 0 15px var(--neon-purple), inset 0 0 15px var(--neon-purple);
+}
+
+.neon-button {
+	background-color: transparent;
+	color: #fff;
+	border: 2px solid var(--neon-purple);
+	border-radius: 0.5rem;
+	padding: 0.5rem 1.5rem;
+	font-weight: bold;
+	text-shadow: 0 0 3px var(--neon-purple);
+	box-shadow: 0 0 5px var(--neon-purple), inset 0 0 5px var(--neon-purple);
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.neon-button:hover {
+	background-color: rgba(138, 43, 226, 0.2);
+	box-shadow: 0 0 10px var(--neon-purple), inset 0 0 10px var(--neon-purple);
+	transform: scale(1.05);
+}
+
+.gradient-text {
+	background: linear-gradient(to right, var(--neon-purple), var(--neon-pink));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	font-weight: bold;
+}
+
+a {
+	color: var(--neon-pink);
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+a:hover {
+	color: var(--neon-blue);
+	text-shadow: 0 0 5px var(--neon-blue);
+}
+
 main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem 1rem;
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
+	font-family: 'Montserrat', sans-serif;
+	margin-bottom: 1rem;
 	font-weight: 700;
 }
-a {
-	color: var(--accent);
-}
-a:hover {
-	color: var(--accent);
-}
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
-}
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
+
 img {
 	max-width: 100%;
 	height: auto;
 	border-radius: 8px;
 }
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+
+.pulse-avatar {
+	border-radius: 50%;
+	animation: neonPulse 3s infinite;
 }
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
+
+/* Стили для модификации блога */
+.blog-card {
+	border: 2px solid var(--neon-purple);
+	border-radius: 0.75rem;
+	box-shadow: 0 0 8px var(--neon-purple);
+	overflow: hidden;
+	transition: all 0.3s ease;
+	background: rgba(45, 0, 100, 0.3);
+	backdrop-filter: blur(5px);
 }
-pre > code {
-	all: unset;
+
+.blog-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 0 15px var(--neon-purple);
 }
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0px;
-	font-size: 1.333em;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-}
+
+/* Responsive styles */
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 16px;
 	}
 	main {
-		padding: 1em;
+		padding: 1rem;
 	}
 }
 

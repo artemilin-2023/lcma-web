@@ -1,49 +1,555 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../layouts/Layout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { Image } from 'astro:assets';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<div class="ascii-background">
+		<div class="ascii-particles"></div>
+		<div class="ascii-art">
+			<pre>
+       ／l、
+     （ﾟ､ ｡ ７
+      l  ~ヽ
+      じしf_,)ノ</pre>
+			<pre>
+     /\_/\  
+    ( o.o ) 
+     &gt; ^ &lt;</pre>
+			<pre>
+      /ᐠ｡ꞈ｡ᐟ\</pre>
+			<pre>
+     ∧,,,∧
+    ( ´･ω･)
+    (っ✿≧▽≦)</pre>
+		</div>
+	</div>
+	<section class="hero" id="hero">
+		<div class="hero-content">
+			<div class="avatar-container">
+				<Image src="/images/placeholder-avatar.png" alt="Аватар" class="pulse-avatar" width={150} height={150} />
+			</div>
+			<h1 class="neon-text">Приветствую в <span class="gradient-text">{SITE_TITLE}</span></h1>
+			<p class="subtitle neon-text-flicker">Мой уголок аниме и творчества в сети</p>
+			<div class="hero-buttons">
+				<a href="/blog" class="neon-button">Мой блог</a>
+				<a href="/about" class="neon-button">Обо мне</a>
+			</div>
+			
+			<!-- Навигация по странице -->
+			<div class="page-nav">
+				<a href="#features" class="page-nav-link">О сайте</a>
+				<a href="#recent-posts" class="page-nav-link">Статьи</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="features neon-box" id="features">
+		<h2 class="section-title gradient-text">Добро пожаловать!</h2>
+		<p>
+			Этот сайт создан с любовью к аниме, kawaii-эстетике и неоновым цветам!
+			Здесь вы найдете блог о моих любимых аниме, творческих проектах и многом другом.
+		</p>
+		
+		<div class="feature-cards">
+			<div class="feature-card">
+				<div class="icon">✨</div>
+				<h3>Блог об аниме</h3>
+				<p>Обзоры, рецензии и размышления о моих любимых аниме-сериалах и фильмах</p>
+			</div>
+			
+			<div class="feature-card">
+				<div class="icon">🎨</div>
+				<h3>Арт-галерея</h3>
+				<p>Мои рисунки и иллюстрации в различных стилях, вдохновленные аниме</p>
+			</div>
+			
+			<div class="feature-card">
+				<div class="icon">💖</div>
+				<h3>Kawaii стиль</h3>
+				<p>Коллекция милых вещей, идей для творчества и вдохновения</p>
+			</div>
+		</div>
+		
+		<div class="scroll-to-section">
+			<a href="#recent-posts" class="scroll-arrow">
+				<span>Перейти к статьям</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polyline points="6 9 12 15 18 9"></polyline>
+				</svg>
+			</a>
+		</div>
+	</section>
+
+	<section class="recent-posts" id="recent-posts">
+		<h2 class="section-title gradient-text">Последние записи в блоге</h2>
+		
+		<div class="blog-grid">
+			<!-- Здесь в будущем можно добавить динамическое отображение последних постов -->
+			<a href="/blog/post-1" class="blog-card">
+				<div class="card-img-container">
+					<Image src="/blog-placeholder-1.jpg" alt="Блог 1" width={800} height={450} />
+				</div>
+				<div class="card-content">
+					<h3>Мое знакомство с аниме</h3>
+					<p>Рассказываю о том, как я познакомился с миром аниме и что это для меня значит</p>
+					<span class="read-more">Читать подробнее →</span>
+				</div>
+			</a>
+			
+			<a href="/blog/post-2" class="blog-card">
+				<div class="card-img-container">
+					<Image src="/blog-placeholder-2.jpg" alt="Блог 2" width={800} height={450} />
+				</div>
+				<div class="card-content">
+					<h3>Топ-5 kawaii персонажей</h3>
+					<p>Подборка самых милых персонажей из разных аниме-сериалов</p>
+					<span class="read-more">Читать подробнее →</span>
+				</div>
+			</a>
+			
+			<a href="/blog/post-3" class="blog-card">
+				<div class="card-img-container">
+					<Image src="/blog-placeholder-3.jpg" alt="Блог 3" width={800} height={450} />
+				</div>
+				<div class="card-content">
+					<h3>Мой опыт рисования в стиле аниме</h3>
+					<p>Делюсь советами и опытом создания иллюстраций в аниме-стиле</p>
+					<span class="read-more">Читать подробнее →</span>
+				</div>
+			</a>
+		</div>
+		
+		<div class="view-all">
+			<a href="/blog" class="neon-button">Смотреть все записи</a>
+		</div>
+		
+		<div class="back-to-top">
+			<a href="#hero" class="scroll-arrow up">
+				<span>Вернуться наверх</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polyline points="18 15 12 9 6 15"></polyline>
+				</svg>
+			</a>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	/* ASCII частицы и фон */
+	.ascii-background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		overflow: hidden;
+		opacity: 0.3;
+		pointer-events: none;
+	}
+
+	.ascii-particles {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		font-family: monospace;
+		font-size: 18px;
+		color: var(--neon-purple);
+		text-shadow: 0 0 5px var(--neon-purple);
+		perspective: 1000px;
+	}
+
+	.ascii-particles::before {
+		content: "⣿ ⢿ ⣻ ⣽ ⣾ ⣷ ⣶ ⣦ ⣤ ⣄ ⡀ ⠄ ⠂ ⠁ ⠈ ⠘ ⠠ ⠐ ⠑ ⠱ ⢰ ⣰ ⣀ ⣄ ⣦ ⣧ ⣷ ⣿ ⢿ ⣻ ⣽ ⢾ ⡿ ⣟ ⣯ ⣷ ⣿ ⢿ ⣻ ⢽ ⡯ ⣟ ⣿ ⢿ ⣯ ⣟ ⣾ ⣻ ⢿ ⡿ ⣟ ⣯ ⣷ ⣿ ⢿ ⣻ ⣽ ⣾ ⣷ ⣿ ⡿ ⣟ ⣯ ⣷ ⡾ ⣽ ⣿ ⢷ ⣫ ⣯ ⢿ ⣟ ⢽ ⢯ ⣻ ⣽ ⣾ ⡷ ⣻ ⢯ ⣷ ⣿ ⢿ ⣟ ⢽ ⡯ ⣿ ⢿ ⣻ ⣽ ⢽ ⣻ ⢿ ⣻ ⢽ ⡻ ⣽ ⢯ .. .. :: :: ;; :: '' `' `. ,, .. :: :: :: .. .. :: :: :: :: ++ ++ ++ ** ** ** ^^ ^^ ** ** __ -- __ -- ~~ ~~ -- ++ __ -- ** ++ ++ __ ~~ :: :: :: .. .. ´´ '' '' `` ,, .. :: // \\ || || || () {} [] || || || // \\ == == || || || || :: :: || || ||";
+		position: absolute;
+		display: block;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 300%;
+		white-space: pre-wrap;
+		word-break: break-all;
+		animation: asciiScroll 120s linear infinite, asciiFlicker 10s ease-in-out infinite alternate;
+		letter-spacing: 2px;
+		line-height: 1.3;
+	}
+
+	.ascii-particles::after {
+		content: "· · · · · · ▪ ▫ ◊ ◊ ◊ ◦ ○ ◎ ● ◌ ◍ ◎ ◌ ◆ ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ ▪ ▫ ▬ ▭ ▮ ▯ ▰ ▱ ▲ △ ▴ ▵ ▶ ▷ ▸ ▹ ► ▻ ▼ ▽ ▾ ▿ ◀ ◁ ◂ ◃ ◄ ◅ ◆ ◇ ◈ ◉ ◊ ○ ◌ ◍ ◎ ● ◐ ◑ ◒ ◓ ◔ ◕ ◖ ◗ ◘ ◙ ◚ ◛ ◜ ◝ ◞ ◟ ◠ ◡ ◢ ◣ ◤ ◥ ◦ ▱ ☖ ☗ ⦾ ⦿";
+		position: absolute;
+		display: block;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 300%;
+		white-space: pre-wrap;
+		word-break: break-all;
+		animation: asciiScroll 90s linear infinite reverse, asciiPulse 15s ease-in-out infinite alternate;
+		opacity: 0.7;
+		transform: translateY(50%);
+		color: var(--neon-pink);
+		text-shadow: 0 0 5px var(--neon-pink);
+		letter-spacing: 3px;
+		line-height: 1.5;
+	}
+
+	@keyframes asciiScroll {
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(-50%);
+		}
+	}
+
+	/* Добавляем новую анимацию пульсации для ASCII-частиц */
+	@keyframes asciiPulse {
+		0%, 100% {
+			text-shadow: 0 0 5px var(--neon-pink);
+		}
+		50% {
+			text-shadow: 0 0 15px var(--neon-pink), 0 0 20px var(--neon-pink);
+		}
+	}
+
+	/* Исправление для скроллинга */
+	html, body {
+		overflow-x: hidden;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: var(--neon-purple) rgba(0, 0, 0, 0.3);
+	}
+
+	/* Кастомный скроллбар для WebKit (Chrome, Safari) */
+	::-webkit-scrollbar {
+		width: 8px;
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background-color: var(--neon-purple);
+		box-shadow: 0 0 5px var(--neon-purple);
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	
+	.hero {
+		padding: 4rem 0;
+		text-align: center;
+	}
+	
+	.hero-content {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	
+	.avatar-container {
+		margin-bottom: 2rem;
+	}
+	
+	.pulse-avatar {
+		border-radius: 50%;
+		object-fit: cover;
+		border: 3px solid var(--neon-purple);
+	}
+	
+	.hero h1 {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+	
+	.subtitle {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+	}
+	
+	.hero-buttons {
+		display: flex;
+		gap: 1.5rem;
+		justify-content: center;
+		margin-top: 2rem;
+	}
+	
+	/* Стили для навигации по странице */
+	.page-nav {
+		margin-top: 3rem;
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+	}
+	
+	.page-nav-link {
+		position: relative;
+		font-weight: 500;
+		padding: 0.5rem 1rem;
+		transition: all 0.3s ease;
+	}
+	
+	.page-nav-link::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		background: var(--neon-purple);
+		transform: scaleX(0);
+		transition: transform 0.3s ease;
+	}
+	
+	.page-nav-link:hover {
+		text-shadow: 0 0 5px var(--neon-purple);
+	}
+	
+	.page-nav-link:hover::after {
+		transform: scaleX(1);
+		box-shadow: 0 0 8px var(--neon-purple);
+	}
+	
+	.features {
+		padding: 2rem;
+		margin: 3rem 0;
+	}
+	
+	.section-title {
+		text-align: center;
+		margin-bottom: 2rem;
+		font-size: 2.2rem;
+	}
+	
+	.feature-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+	
+	.feature-card {
+		padding: 1.5rem;
+		border-radius: 0.5rem;
+		background: rgba(45, 0, 100, 0.3);
+		backdrop-filter: blur(5px);
+		transition: all 0.3s ease;
+		border: 1px solid rgba(138, 43, 226, 0.3);
+	}
+	
+	.feature-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 0 10px var(--neon-purple);
+	}
+	
+	.feature-card .icon {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+	
+	.feature-card h3 {
+		margin-bottom: 1rem;
+		font-size: 1.5rem;
+		color: var(--neon-pink);
+		text-shadow: 0 0 5px var(--neon-pink);
+	}
+	
+	/* Стрелка прокрутки вниз */
+	.scroll-to-section {
+		text-align: center;
+		margin-top: 3rem;
+	}
+	
+	.scroll-arrow {
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		transition: all 0.3s ease;
+		opacity: 0.8;
+	}
+	
+	.scroll-arrow span {
+		margin-bottom: 0.5rem;
+	}
+	
+	.scroll-arrow:hover {
+		transform: translateY(5px);
+		opacity: 1;
+	}
+	
+	.scroll-arrow.up:hover {
+		transform: translateY(-5px);
+	}
+	
+	.scroll-arrow svg {
+		animation: floatingAnimation 2s ease-in-out infinite;
+	}
+	
+	.recent-posts {
+		margin: 4rem 0;
+	}
+	
+	.blog-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin: 2rem 0;
+	}
+	
+	.blog-card {
+		text-decoration: none;
+		color: inherit;
+		overflow: hidden;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.card-img-container {
+		overflow: hidden;
+		border-radius: 0.75rem 0.75rem 0 0;
+		aspect-ratio: 16/9;
+	}
+	
+	.card-img-container img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+	
+	.blog-card:hover .card-img-container img {
+		transform: scale(1.05);
+	}
+	
+	.card-content {
+		padding: 1.5rem;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.card-content h3 {
+		margin-bottom: 0.75rem;
+		color: var(--neon-blue);
+		text-shadow: 0 0 3px var(--neon-blue);
+	}
+	
+	.read-more {
+		margin-top: auto;
+		font-weight: 500;
+		color: var(--neon-pink);
+		transition: all 0.3s ease;
+	}
+	
+	.blog-card:hover .read-more {
+		text-shadow: 0 0 5px var(--neon-pink);
+	}
+	
+	.view-all {
+		text-align: center;
+		margin-top: 2rem;
+	}
+	
+	/* Кнопка "Вернуться наверх" внутри контента */
+	.back-to-top {
+		text-align: center;
+		margin-top: 4rem;
+	}
+	
+	@media (max-width: 768px) {
+		.hero h1 {
+			font-size: 2.2rem;
+		}
+		
+		.subtitle {
+			font-size: 1.2rem;
+		}
+		
+		.hero-buttons {
+			flex-direction: column;
+			align-items: center;
+			gap: 1rem;
+		}
+		
+		.hero-buttons .neon-button {
+			width: 100%;
+			max-width: 250px;
+		}
+		
+		.page-nav {
+			flex-direction: column;
+			gap: 1rem;
+		}
+	}
+
+	.ascii-art {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding: 5% 10%;
+		color: var(--neon-pink);
+		font-size: 14px;
+		opacity: 0.7;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	.ascii-art pre {
+		animation: asciiFlicker 8s ease-in-out infinite alternate;
+		margin: 0;
+		transform: scale(1);
+		text-shadow: 0 0 8px var(--neon-pink);
+		font-weight: bold;
+	}
+
+	.ascii-art pre:nth-child(1) {
+		align-self: flex-start;
+		animation-delay: 0s;
+	}
+
+	.ascii-art pre:nth-child(2) {
+		align-self: flex-end;
+		animation-delay: 1s;
+	}
+
+	.ascii-art pre:nth-child(3) {
+		align-self: center;
+		animation-delay: 2s;
+	}
+
+	.ascii-art pre:nth-child(4) {
+		align-self: flex-start;
+		animation-delay: 3s;
+	}
+
+	.ascii-art pre:nth-child(5) {
+		align-self: flex-end;
+		animation-delay: 4s;
+	}
+
+	.ascii-art pre:nth-child(6) {
+		align-self: center;
+		animation-delay: 5s;
+	}
+
+	@keyframes asciiFlicker {
+		0%, 5%, 10% {
+			opacity: 0.3;
+		}
+		2%, 8%, 15%, 25%, 30%, 100% {
+			opacity: 0.8;
+		}
+		50%, 70% {
+			opacity: 0.5;
+		}
+	}
+</style>

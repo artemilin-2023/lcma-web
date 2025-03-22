@@ -1,0 +1,34 @@
+---
+// Компонент для добавления плавной прокрутки к якорным ссылкам
+// при этом не мешает обычной прокрутке колесиком мыши
+---
+
+<script>
+  // Находим все якорные ссылки на странице
+  const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+  
+  // Добавляем обработчик события для каждой найденной ссылки
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
+      e.preventDefault();
+      
+      // Получаем ID элемента, к которому нужно прокрутить
+      const targetId = this.getAttribute('href')?.substring(1);
+      if (!targetId) return;
+      
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        // Плавно прокручиваем к целевому элементу с небольшим отступом сверху
+        const yOffset = -80; // Регулируйте отступ от верха экрана
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        
+        // Используем плавную прокрутку только для якорных ссылок
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script> 
