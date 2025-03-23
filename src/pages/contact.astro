@@ -88,6 +88,16 @@ import { SOCIAL_LINKS } from '../consts';
 	.contact-card {
 		padding: 2rem;
 		margin-bottom: 2rem;
+		background: rgba(45, 0, 100, 0.3);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+		border: 2px solid var(--neon-purple);
+		box-shadow: 0 0 8px var(--neon-purple), inset 0 0 8px var(--neon-purple);
+		transition: all 0.3s ease;
+	}
+	
+	.contact-card:hover {
+		box-shadow: 0 0 15px var(--neon-purple), inset 0 0 15px var(--neon-purple);
 	}
 	
 	.contact-card h2 {
@@ -137,16 +147,19 @@ import { SOCIAL_LINKS } from '../consts';
 	.social-links {
 		display: flex;
 		gap: 1rem;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		align-items: flex-start;
 	}
 	
 	.social-link {
 		font-family: var(--font-accent);
-		display: inline-block;
 		padding: 0.25rem 0.75rem;
 		border-radius: 3rem;
 		font-size: 0.9rem;
 		background: rgba(138, 43, 226, 0.2);
 		transition: all 0.3s ease;
+		margin-bottom: 0.5rem;
 	}
 	
 	.social-link:hover {
@@ -159,6 +172,16 @@ import { SOCIAL_LINKS } from '../consts';
 		display: flex;
 		gap: 1rem;
 		align-items: center;
+		background: rgba(45, 0, 100, 0.3);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+		border: 2px solid var(--neon-purple);
+		box-shadow: 0 0 8px var(--neon-purple), inset 0 0 8px var(--neon-purple);
+		transition: all 0.3s ease;
+	}
+	
+	.kawaii-message:hover {
+		box-shadow: 0 0 15px var(--neon-purple), inset 0 0 15px var(--neon-purple);
 	}
 	
 	.kawaii-avatar {
@@ -179,10 +202,17 @@ import { SOCIAL_LINKS } from '../consts';
 	
 	.message-bubble {
 		position: relative;
-		background: rgba(255, 105, 180, 0.1);
+		background: rgba(255, 105, 180, 0.15);
 		padding: 1rem;
 		border-radius: 0.5rem;
 		border: 1px solid var(--neon-pink);
+		backdrop-filter: blur(3px);
+		-webkit-backdrop-filter: blur(3px);
+		transition: all 0.3s ease;
+	}
+	
+	.message-bubble:hover {
+		box-shadow: 0 0 8px var(--neon-pink);
 	}
 	
 	.message-bubble::before {
@@ -205,6 +235,8 @@ import { SOCIAL_LINKS } from '../consts';
 		.contact-item {
 			flex-direction: column;
 			text-align: center;
+			align-items: center;
+			margin-bottom: 1.5rem;
 		}
 		
 		.contact-icon {
@@ -212,8 +244,13 @@ import { SOCIAL_LINKS } from '../consts';
 			width: auto;
 		}
 		
+		.contact-text {
+			align-items: center;
+		}
+		
 		.social-links {
-			justify-content: center;
+			width: 100%;
+			justify-content: flex-start;
 		}
 		
 		.kawaii-message {
@@ -227,6 +264,13 @@ import { SOCIAL_LINKS } from '../consts';
 		
 		.message-bubble::before {
 			display: none;
+		}
+	}
+	
+	@media (max-width: 400px) {
+		.social-link {
+			font-size: 0.85rem;
+			padding: 0.2rem 0.6rem;
 		}
 	}
 </style> 

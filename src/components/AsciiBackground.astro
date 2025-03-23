@@ -3,10 +3,11 @@ import AsciiArt from './AsciiArt.astro';
 
 export interface Props {
     count?: number;
+    mobileCount?: number;
     class?: string;
 }
 
-const { count = 8, class: className = "" } = Astro.props;
+const { count = 8, mobileCount = 8, class: className = "" } = Astro.props;
 
 // Создаем массив с номерами вариантов ASCII арта
 const variants = Array.from({ length: Math.min(count, 8) }, (_, i) => i);
@@ -14,7 +15,7 @@ const variants = Array.from({ length: Math.min(count, 8) }, (_, i) => i);
 
 <div class={`ascii-background ${className}`}>
     {variants.map((variant) => (
-        <AsciiArt variant={variant} />
+        <AsciiArt variant={variant} class={variant >= mobileCount ? "hide-on-mobile" : ""} />
     ))}
 </div>
 
@@ -29,5 +30,11 @@ const variants = Array.from({ length: Math.min(count, 8) }, (_, i) => i);
         z-index: -1;
         overflow: hidden;
         opacity: 0.3;
+    }
+    
+    @media (max-width: 768px) {
+        .hide-on-mobile {
+            display: none;
+        }
     }
 </style>
