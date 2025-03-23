@@ -284,5 +284,50 @@ import Layout from '../layouts/Layout.astro';
 			width: calc(100% - 60px);
 			margin-left: 60px !important;
 		}
+		
+		.interests-grid {
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 1.5rem;
+		}
+		
+		.profile-bio {
+			font-size: 1rem;
+			line-height: 1.6;
+		}
+		
+		.interest-card {
+			padding: 1.2rem;
+		}
+		
+		.contact-wrapper {
+			width: 90%;
+		}
+	}
+	
+	@media (max-width: 480px) {
+		.profile-card {
+			padding: 1.5rem 1rem;
+		}
+		
+		.timeline-content {
+			padding: 1rem;
+		}
+		
+		.interests-section {
+			padding: 1.5rem 1rem;
+		}
+		
+		.interests-grid {
+			grid-template-columns: 1fr;
+		}
+		
+		.interest-icon {
+			font-size: 2rem;
+		}
+		
+		.contact-text {
+			font-size: 1rem;
+			margin-bottom: 1.5rem;
+		}
 	}
 </style>

@@ -394,3 +394,63 @@ p.subtitle {
 		font-size: 1.1rem;
 	}
 }
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+	body {
+		font-size: 16px;
+	}
+	
+	h1 {
+		font-size: 2rem;
+	}
+	
+	h2 {
+		font-size: 1.7rem;
+	}
+	
+	h3 {
+		font-size: 1.3rem;
+	}
+}
+
+@media (max-width: 480px) {
+	body {
+		font-size: 15px;
+	}
+	
+	h1 {
+		font-size: 1.8rem;
+	}
+	
+	h2 {
+		font-size: 1.5rem;
+	}
+	
+	h3 {
+		font-size: 1.2rem;
+	}
+	
+	.neon-button {
+		padding: 0.4rem 1.2rem;
+		font-size: 0.9rem;
+	}
+	
+	.section-title {
+		font-size: 1.8rem;
+		margin-bottom: 1.5rem;
+	}
+}
+
+/* Адаптивные контейнеры для изображений */
+.responsive-img-container {
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
+
+.responsive-img-container img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
