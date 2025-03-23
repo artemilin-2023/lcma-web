@@ -1,0 +1,180 @@
+---
+const icons: Record<string, string> = {
+  'note': '📝',
+  'info': 'ℹ️',
+  'warn': '⚠️',
+  'important': '🛑',
+  'success': '✅',
+  'tip': '💡'
+};
+
+const defaultTitles: Record<string, string> = {
+  'note': 'Примечание',
+  'info': 'Информация',
+  'warn': 'Внимание',
+  'important': 'Важно',
+  'success': 'Успешно',
+  'tip': 'Совет'
+};
+
+export interface Props {
+  type: 'note' | 'info' | 'warn' | 'important' | 'success' | 'tip';
+  title?: string;
+}
+
+const { type, title } = Astro.props;
+const messageTitle = title || defaultTitles[type];
+---
+
+<div class={`message-box ${type}`}>
+  <div class="icon">{icons[type]}</div>
+  <div class="content">
+    <div class="title">{messageTitle}</div>
+    <div class="message-content"><slot /></div>
+  </div>
+</div>
+
+<style>
+  .message-box {
+    display: flex;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    background-color: rgba(26, 9, 45, 0.7);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-alternative);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .message-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+  }
+
+  .message-box:hover {
+    transform: translateY(-2px);
+  }
+
+  .note {
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 5px var(--neon-purple);
+  }
+  
+  .note::before {
+    background-color: var(--neon-purple);
+    box-shadow: 0 0 5px var(--neon-purple);
+  }
+
+  .info {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 5px var(--neon-blue);
+  }
+  
+  .info::before {
+    background-color: var(--neon-blue);
+    box-shadow: 0 0 5px var(--neon-blue);
+  }
+
+  .warn {
+    border-color: var(--neon-orange);
+    box-shadow: 0 0 5px var(--neon-orange);
+  }
+  
+  .warn::before {
+    background-color: var(--neon-orange);
+    box-shadow: 0 0 5px var(--neon-orange);
+  }
+
+  .important {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 5px var(--neon-red);
+  }
+  
+  .important::before {
+    background-color: var(--neon-red);
+    box-shadow: 0 0 5px var(--neon-red);
+  }
+
+  .success {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 5px var(--neon-green);
+  }
+  
+  .success::before {
+    background-color: var(--neon-green);
+    box-shadow: 0 0 5px var(--neon-green);
+  }
+
+  .tip {
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 5px var(--neon-purple);
+  }
+  
+  .tip::before {
+    background-color: var(--neon-purple);
+    box-shadow: 0 0 5px var(--neon-purple);
+  }
+
+  .icon {
+    flex-shrink: 0;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    flex: 1;
+  }
+
+  .title {
+    font-family: var(--font-alternative);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .note .title {
+    color: var(--neon-purple);
+    text-shadow: 0 0 3px var(--neon-purple);
+  }
+  
+  .info .title {
+    color: var(--neon-blue);
+    text-shadow: 0 0 3px var(--neon-blue);
+  }
+  
+  .warn .title {
+    color: var(--neon-orange);
+    text-shadow: 0 0 3px var(--neon-orange);
+  }
+  
+  .important .title {
+    color: var(--neon-red);
+    text-shadow: 0 0 3px var(--neon-red);
+  }
+  
+  .success .title {
+    color: var(--neon-green);
+    text-shadow: 0 0 3px var(--neon-green);
+  }
+  
+  .tip .title {
+    color: var(--neon-purple);
+    text-shadow: 0 0 3px var(--neon-purple);
+  }
+  
+  .message-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+</style> 

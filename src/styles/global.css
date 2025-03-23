@@ -23,6 +23,9 @@
 	--dark-purple: #37248F;
 	--dark-blue: #1A092D;
 	--accent-pink: #E880FC;
+	--neon-green: #8EFF9E;
+	--neon-orange: #f59e0b;
+	--neon-red: #f55656;
 	--bg-gradient: linear-gradient(135deg, var(--dark-purple) 0%, var(--dark-blue) 100%);
 	--box-shadow: 0 4px 20px rgba(179, 136, 255, 0.5);
 	--text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);

@@ -391,30 +391,6 @@ const recentPosts = (await getCollection('blog'))
 			gap: 1rem;
 		}
 	}
-	
-	@keyframes asciiFlicker {
-		0%, 5%, 10% {
-			opacity: 0.3;
-		}
-		2%, 8%, 15%, 25%, 30%, 100% {
-			opacity: 0.8;
-		}
-		50%, 70% {
-			opacity: 0.5;
-		}
-	}
-
-	@keyframes floatingAscii {
-		0% {
-			transform: translate(0, 0) rotate(var(--rotation));
-		}
-		50% {
-			transform: translate(10px, -10px) rotate(var(--rotation));
-		}
-		100% {
-			transform: translate(-5px, 5px) rotate(var(--rotation));
-		}
-	}
 
 	.post-date {
 		font-size: 0.85rem;

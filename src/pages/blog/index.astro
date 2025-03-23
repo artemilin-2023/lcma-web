@@ -155,26 +155,6 @@ const posts = (await getCollection('blog')).sort(
 				text-shadow: 0 0 5px var(--neon-pink);
 			}
 			
-			.kawaii-emoji {
-				position: absolute;
-				font-size: 1.5rem;
-				animation: floatEmoji 6s ease-in-out infinite;
-				z-index: 2;
-				pointer-events: none;
-			}
-			
-			@keyframes floatEmoji {
-				0% {
-					transform: translateY(0) rotate(0deg);
-				}
-				50% {
-					transform: translateY(-10px) rotate(5deg);
-				}
-				100% {
-					transform: translateY(0) rotate(0deg);
-				}
-			}
-			
 			@media (max-width: 768px) {
 				.blog-section {
 					padding: 1.5rem;
