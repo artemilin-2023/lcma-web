@@ -152,4 +152,10 @@ const animationDirection = directions[variant] || "alternate";
             transform: translate(-5px, 5px) rotate(var(--rotation));
         }
     }
+    
+    @media (max-width: 768px) {
+        .ascii-art.hide-on-mobile {
+            display: none !important;
+        }
+    }
 </style> 
