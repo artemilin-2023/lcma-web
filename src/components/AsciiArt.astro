@@ -62,7 +62,7 @@ const artCollection = [
 ];
 
 // Выбираем арт из коллекции или используем пользовательский
-const artToDisplay = customArt || artCollection[variant - 1] || artCollection[0];
+const artToDisplay = customArt || artCollection[variant] || artCollection[0];
 
 // Фиксированные позиции для каждого варианта
 const positions = [
@@ -78,24 +78,24 @@ const positions = [
 
 // Используем предопределённую позицию для варианта или указанную пользователем
 const posStyles = {
-    top: position.top || positions[variant - 1]?.top || "15%",
-    left: position.left || positions[variant - 1]?.left,
-    right: position.right || positions[variant - 1]?.right,
+    top: position.top || positions[variant]?.top || "15%",
+    left: position.left || positions[variant]?.left,
+    right: position.right || positions[variant]?.right,
     bottom: position.bottom || undefined,
 };
 
 // Фиксированные повороты для каждого варианта
 const rotations = ["-5deg", "3deg", "-2deg", "4deg", "-3deg", "2deg", "-1deg", "5deg"];
-const rot = rotation || rotations[variant - 1] || "0deg";
+const rot = rotation || rotations[variant] || "0deg";
 
 // Фиксированные задержки анимации для каждого варианта
 const delays = ["0s", "0.5s", "1s", "1.5s", "0.8s", "1.2s", "0.3s", "0.7s"];
-const animDelay = animationDelay || delays[variant - 1] || "0s";
+const animDelay = animationDelay || delays[variant] || "0s";
 
 // Фиксированные направления анимации
 const directions = ["alternate", "alternate-reverse", "alternate", "alternate-reverse", 
                    "alternate", "alternate-reverse", "alternate", "alternate-reverse"];
-const animationDirection = directions[variant - 1] || "alternate";
+const animationDirection = directions[variant] || "alternate";
 ---
 
 <div class={`ascii-art ${className}`} style={`

@@ -9,7 +9,7 @@ export interface Props {
 const { count = 8, class: className = "" } = Astro.props;
 
 // Создаем массив с номерами вариантов ASCII арта
-const variants = Array.from({ length: Math.min(count, 8) }, (_, i) => i + 1);
+const variants = Array.from({ length: Math.min(count, 8) }, (_, i) => i);
 ---
 
 <div class={`ascii-background ${className}`}>

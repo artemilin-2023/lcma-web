@@ -2,6 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const recentPosts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -63,39 +69,19 @@ import { Image } from 'astro:assets';
 		<h2 class="section-title gradient-text">Последние записи в блоге</h2>
 		
 		<div class="blog-grid">
-			<!-- Здесь в будущем можно добавить динамическое отображение последних постов -->
-			<a href="/blog/post-1" class="blog-card">
-				<div class="card-img-container">
-					<Image src="/blog-placeholder-1.jpg" alt="Блог 1" width={800} height={450} />
-				</div>
-				<div class="card-content">
-					<h3>Овсянка</h3>
-					<p>Привет, спишь?</p>
-					<span class="read-more">Читать подробнее →</span>
-				</div>
-			</a>
-			
-			<a href="/blog/post-2" class="blog-card">
-				<div class="card-img-container">
-					<Image src="/blog-placeholder-2.jpg" alt="Блог 2" width={800} height={450} />
-				</div>
-				<div class="card-content">
-					<h3>Топ-5 kawaii персонажей</h3>
-					<p>Илюха, Егор, Даня, Дима и прочие эксперты</p>
-					<span class="read-more">Читать подробнее →</span>
-				</div>
-			</a>
-			
-			<a href="/blog/post-3" class="blog-card">
-				<div class="card-img-container">
-					<Image src="/blog-placeholder-3.jpg" alt="Блог 3" width={800} height={450} />
-				</div>
-				<div class="card-content">
-					<h3>Паттерн докер билдер 🐋</h3>
-					<p>Как сделать докер билдер и при этом не умереть</p>
-					<span class="read-more">Читать подробнее →</span>
-				</div>
-			</a>
+			{recentPosts.map((post) => (
+				<a href={`/blog/${post.id}/`} class="blog-card">
+					<div class="card-img-container">
+						<Image src={post.data.heroImage || '/blog-placeholder-1.jpg'} alt={post.data.title} width={800} height={450} />
+					</div>
+					<div class="card-content">
+						<h3>{post.data.title}</h3>
+						<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
+						<p>{post.data.description}</p>
+						<span class="read-more">Читать подробнее →</span>
+					</div>
+				</a>
+			))}
 		</div>
 		
 		<div class="view-all">
@@ -103,7 +89,7 @@ import { Image } from 'astro:assets';
 		</div>
 		
 		<div class="back-to-top">
-			<a href="#hero" class="scroll-arrow up">
+			<a href="#header-container" class="scroll-arrow up">
 				<span>Вернуться наверх</span>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<polyline points="18 15 12 9 6 15"></polyline>
@@ -114,29 +100,6 @@ import { Image } from 'astro:assets';
 </Layout>
 
 <style>
-	/* ASCII частицы и фон */
-	.ascii-background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
-		overflow: hidden;
-		opacity: 0.3;
-		pointer-events: none;
-	}
-
-	/* Добавляем новую анимацию пульсации для ASCII-частиц */
-	@keyframes asciiPulse {
-		0%, 100% {
-			text-shadow: 0 0 5px var(--neon-pink);
-		}
-		50% {
-			text-shadow: 0 0 15px var(--neon-pink), 0 0 20px var(--neon-pink);
-		}
-	}
-
 	/* Исправление для скроллинга */
 	html, body {
 		overflow-x: hidden;
@@ -266,6 +229,7 @@ import { Image } from 'astro:assets';
 		color: inherit;
 		display: block;
 		width: 100%;
+		height: 100%;
 	}
 	
 	.feature-card {
@@ -427,89 +391,6 @@ import { Image } from 'astro:assets';
 			gap: 1rem;
 		}
 	}
-
-	.ascii-art {
-		position: absolute;
-		font-family: monospace;
-		color: var(--neon-pink);
-		font-size: 14px;
-		opacity: 0.7;
-		pointer-events: none;
-		z-index: 1;
-	}
-
-	.ascii-art pre {
-		animation: asciiFlicker 8s ease-in-out infinite alternate;
-		margin: 0;
-		transform: scale(1);
-		text-shadow: 0 0 8px var(--neon-pink);
-		font-weight: bold;
-	}
-
-	/* Случайные позиции для ASCII-арт элементов */
-	.ascii-1 {
-		top: 15%;
-		left: 10%;
-		--rotation: -5deg;
-		transform: rotate(-5deg);
-		animation: floatingAscii 6s ease-in-out infinite alternate;
-	}
-
-	.ascii-2 {
-		top: 35%;
-		right: 8%;
-		--rotation: 3deg;
-		transform: rotate(3deg);
-		animation: floatingAscii 8s ease-in-out infinite alternate-reverse;
-	}
-
-	.ascii-3 {
-		bottom: 25%;
-		left: 15%;
-		--rotation: -2deg;
-		transform: rotate(-2deg);
-		animation: floatingAscii 7s ease-in-out infinite alternate;
-	}
-
-	.ascii-4 {
-		bottom: 15%;
-		right: 12%;
-		--rotation: 4deg;
-		transform: rotate(4deg);
-		animation: floatingAscii 9s ease-in-out infinite alternate-reverse;
-	}
-	
-	.ascii-5 {
-		top: 60%;
-		left: 35%;
-		--rotation: -3deg;
-		transform: rotate(-3deg);
-		animation: floatingAscii 5s ease-in-out infinite alternate;
-	}
-	
-	.ascii-6 {
-		top: 20%;
-		right: 30%;
-		--rotation: 2deg;
-		transform: rotate(2deg);
-		animation: floatingAscii 7.5s ease-in-out infinite alternate-reverse;
-	}
-	
-	.ascii-7 {
-		top: 75%;
-		right: 25%;
-		--rotation: -1deg;
-		transform: rotate(-1deg);
-		animation: floatingAscii 5.5s ease-in-out infinite alternate;
-	}
-	
-	.ascii-8 {
-		top: 45%;
-		left: 25%;
-		--rotation: 5deg;
-		transform: rotate(5deg);
-		animation: floatingAscii 8.5s ease-in-out infinite alternate-reverse;
-	}
 	
 	@keyframes asciiFlicker {
 		0%, 5%, 10% {
@@ -533,5 +414,13 @@ import { Image } from 'astro:assets';
 		100% {
 			transform: translate(-5px, 5px) rotate(var(--rotation));
 		}
+	}
+
+	.post-date {
+		font-size: 0.85rem;
+		opacity: 0.8;
+		margin: -0.5rem 0 0.75rem 0;
+		font-family: var(--font-alternative);
+		color: var(--neon-blue);
 	}
 </style>

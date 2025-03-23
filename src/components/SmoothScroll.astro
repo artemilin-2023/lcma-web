@@ -20,8 +20,8 @@
       
       if (targetElement) {
         // Плавно прокручиваем к целевому элементу с небольшим отступом сверху
-        const yOffset = -80; // Регулируйте отступ от верха экрана
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        const yOffset = -60; // Регулируйте отступ от верха экрана
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
         
         // Используем плавную прокрутку только для якорных ссылок
         window.scrollTo({
