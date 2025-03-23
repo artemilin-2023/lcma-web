@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { Image } from 'astro:assets';
-import AsciiBackground from '../components/AsciiBackground.astro';
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -10,7 +9,7 @@ import AsciiBackground from '../components/AsciiBackground.astro';
 	<section class="hero" id="hero">
 		<div class="hero-content">
 			<div class="avatar-container">
-				<Image src="/images/placeholder-avatar.png" alt="Аватар" class="pulse-avatar" width={150} height={150} />
+				<Image src="/images/placeholder-avatar.png" alt="Аватар" class="pulse-avatar" width={150} height={150} loading="eager" />
 			</div>
 			<h1 class="neon-text">Приветствую в <span class="gradient-text">{SITE_TITLE}</span></h1>
 			<p class="subtitle neon-text-flicker">Мой nerd уголок в сети интернет</p>

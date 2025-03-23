@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { SOCIAL_LINKS } from '../consts';
 ---
 
@@ -41,7 +42,7 @@ import { SOCIAL_LINKS } from '../consts';
 				
 				<div class="kawaii-message neon-box">
 					<div class="kawaii-avatar">
-						<img src="/images/placeholder-avatar.png" alt="Kawaii персонаж" />
+						<Image src="/images/placeholder-avatar.png" alt="Аватар" width={150} height={150} loading="eager" />
 					</div>
 					<div class="message-bubble">
 						<p>Буду рад общению с вами! Давайте обсудим аниме, веб-разработку или любые другие интересующие вас темы 💜</p>
