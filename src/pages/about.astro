@@ -195,12 +195,33 @@ import Layout from '../layouts/Layout.astro';
 		background: var(--neon-pink);
 		box-shadow: 0 0 10px var(--neon-pink);
 		z-index: 10;
+		animation: dotPulse 3s ease-in-out infinite;
 	}
 	
 	.timeline-content {
 		width: calc(50% - 40px);
 		padding: 1.5rem;
 		position: relative;
+		opacity: 0;
+		transform: translateY(20px);
+		animation: fadeInUp 0.8s ease-out forwards, timelineFloat 6s ease-in-out infinite;
+		animation-delay: var(--fade-delay), calc(var(--fade-delay) + 0.8s);
+	}
+	
+	.timeline-item:nth-child(1) .timeline-content {
+		--fade-delay: 0.1s;
+	}
+	
+	.timeline-item:nth-child(2) .timeline-content {
+		--fade-delay: 0.3s;
+	}
+	
+	.timeline-item:nth-child(3) .timeline-content {
+		--fade-delay: 0.5s;
+	}
+	
+	.timeline-item:nth-child(4) .timeline-content {
+		--fade-delay: 0.7s;
 	}
 	
 	.timeline-item:nth-child(odd) .timeline-content {
@@ -212,6 +233,7 @@ import Layout from '../layouts/Layout.astro';
 		margin-bottom: 0.75rem;
 		color: var(--neon-blue);
 		text-shadow: 0 0 5px var(--neon-blue);
+		animation: textGlow 4s ease-in-out infinite;
 	}
 	
 	.interests-section {
@@ -345,6 +367,56 @@ import Layout from '../layouts/Layout.astro';
 		.contact-text {
 			font-size: 1rem;
 			margin-bottom: 1.5rem;
+		}
+	}
+	
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	
+	@keyframes dotPulse {
+		0% {
+			box-shadow: 0 0 10px var(--neon-pink);
+		}
+		50% {
+			box-shadow: 0 0 20px var(--neon-pink);
+		}
+		100% {
+			box-shadow: 0 0 10px var(--neon-pink);
+		}
+	}
+	
+	@keyframes timelineFloat {
+		0% {
+			transform: translateY(0px);
+			box-shadow: 0 0 8px var(--neon-purple), inset 0 0 8px var(--neon-purple);
+		}
+		50% {
+			transform: translateY(-5px);
+			box-shadow: 0 0 15px var(--neon-purple), inset 0 0 10px var(--neon-purple);
+		}
+		100% {
+			transform: translateY(0px);
+			box-shadow: 0 0 8px var(--neon-purple), inset 0 0 8px var(--neon-purple);
+		}
+	}
+	
+	@keyframes textGlow {
+		0% {
+			text-shadow: 0 0 5px var(--neon-blue);
+		}
+		50% {
+			text-shadow: 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue);
+		}
+		100% {
+			text-shadow: 0 0 5px var(--neon-blue);
 		}
 	}
 </style>
