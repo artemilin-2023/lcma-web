@@ -5,6 +5,11 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import AsciiBackground from '../../components/AsciiBackground.astro';
+import KawaiiElements from '../../components/KawaiiElements.astro';
+import ScrollProgress from '../../components/ScrollProgress.astro';
+import ScrollToTop from '../../components/ScrollToTop.astro';
+import SmoothScroll from '../../components/SmoothScroll.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -12,93 +17,236 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
-			}
-			ul {
+			body {
+				min-height: 100vh;
 				display: flex;
-				flex-wrap: wrap;
+				flex-direction: column;
+				overflow-x: hidden;
+			}
+			
+			main {
+				flex: 1;
+				width: 90%;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 2rem 1rem;
+			}
+			
+			.blog-title {
+				font-family: var(--font-heading);
+				text-align: center;
+				margin-bottom: 2.5rem;
+				font-size: 3rem;
+				color: var(--neon-blue);
+				text-shadow: 0 0 15px var(--neon-blue);
+			}
+			
+			.blog-section {
+				background: rgba(45, 0, 100, 0.3);
+				backdrop-filter: blur(5px);
+				-webkit-backdrop-filter: blur(5px);
+				border-radius: 0.5rem;
+				border: 2px solid var(--neon-purple);
+				box-shadow: 0 0 8px var(--neon-purple), inset 0 0 8px var(--neon-purple);
+				padding: 2rem;
+				margin-bottom: 3rem;
+			}
+			
+			.blog-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 				gap: 2rem;
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
 			}
-			ul li {
-				width: calc(50% - 1rem);
+			
+			.blog-grid li:first-child {
+				grid-column: 1 / -1;
 			}
-			ul li * {
+			
+			.blog-grid li:first-child .card-content {
+				max-width: 720px;
+				margin: 0 auto;
+			}
+			
+			.blog-grid li:first-child .title {
+				font-size: 2.2rem;
+			}
+			
+			.blog-card {
 				text-decoration: none;
-				transition: 0.2s ease;
+				color: inherit;
+				overflow: hidden;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				border-radius: 0.75rem;
+				background: rgba(36, 0, 70, 0.4);
+				transition: all 0.3s ease;
+				border: 1px solid rgba(138, 43, 226, 0.3);
 			}
-			ul li:first-child {
+			
+			.blog-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 0 15px var(--neon-purple);
+			}
+			
+			.card-img-container {
+				overflow: hidden;
+				border-radius: 0.75rem 0.75rem 0 0;
+				aspect-ratio: 16/9;
+			}
+			
+			.card-img-container img {
 				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.5s ease;
 			}
-			ul li:first-child img {
-				width: 100%;
+			
+			.blog-card:hover .card-img-container img {
+				transform: scale(1.05);
 			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
+			
+			.card-content {
+				padding: 1.5rem;
+				flex-grow: 1;
+				display: flex;
+				flex-direction: column;
 			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
+			
 			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+				margin: 0 0 0.5rem 0;
+				font-family: var(--font-heading);
+				font-size: 1.5rem;
+				color: var(--neon-blue);
+				text-shadow: 0 0 5px var(--neon-blue);
+				transition: all 0.3s ease;
 			}
+			
 			.date {
 				margin: 0;
-				color: rgb(var(--gray));
+				font-family: var(--font-alternative);
+				font-size: 0.9rem;
+				color: var(--neon-pink);
+				font-style: italic;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+			
+			.read-more {
+				margin-top: auto;
+				font-weight: 500;
+				color: var(--neon-pink);
+				transition: all 0.3s ease;
+				align-self: flex-start;
+				margin-top: 1rem;
+				font-family: var(--font-alternative);
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+			
+			.blog-card:hover .title {
+				text-shadow: 0 0 10px var(--neon-blue);
 			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
+			
+			.blog-card:hover .read-more {
+				text-shadow: 0 0 5px var(--neon-pink);
+			}
+			
+			.kawaii-emoji {
+				position: absolute;
+				font-size: 1.5rem;
+				animation: floatEmoji 6s ease-in-out infinite;
+				z-index: 2;
+				pointer-events: none;
+			}
+			
+			@keyframes floatEmoji {
+				0% {
+					transform: translateY(0) rotate(0deg);
 				}
-				ul li {
-					width: 100%;
-					text-align: center;
+				50% {
+					transform: translateY(-10px) rotate(5deg);
 				}
-				ul li:first-child {
-					margin-bottom: 0;
+				100% {
+					transform: translateY(0) rotate(0deg);
 				}
-				ul li:first-child .title {
-					font-size: 1.563em;
+			}
+			
+			@media (max-width: 768px) {
+				.blog-section {
+					padding: 1.5rem;
+				}
+				
+				.blog-grid {
+					grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+					gap: 1.5rem;
+				}
+				
+				.blog-grid li:first-child .title {
+					font-size: 1.8rem;
+				}
+				
+				.title {
+					font-size: 1.3rem;
+				}
+				
+				.blog-title {
+					font-size: 2.5rem;
+				}
+			}
+			
+			@media (max-width: 480px) {
+				main {
+					width: 95%;
+					padding: 1.5rem 0.5rem;
+				}
+				
+				.blog-section {
+					padding: 1rem;
+				}
+				
+				.blog-grid {
+					grid-template-columns: 1fr;
+				}
+				
+				.card-content {
+					padding: 1.2rem;
+				}
+				
+				.blog-title {
+					font-size: 2rem;
+					margin-bottom: 1.5rem;
 				}
 			}
 		</style>
 	</head>
-	<body>
+	<body class="kawaii-container">
+		<KawaiiElements />
+		<AsciiBackground count={8} mobileCount={5} />
+		<ScrollProgress />
 		<Header />
 		<main>
-			<section>
-				<ul>
+			<h1 class="blog-title">Блог</h1>
+			
+			<section class="blog-section">
+				<ul class="blog-grid">
 					{
 						posts.map((post) => (
 							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+								<a href={`/blog/${post.id}/`} class="blog-card">
+									<div class="card-img-container">
+										<img width={720} height={360} src={post.data.heroImage} alt="" />
+									</div>
+									<div class="card-content">
+										<h2 class="title">{post.data.title}</h2>
+										<p class="date">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+										<span class="read-more">Читать статью →</span>
+									</div>
 								</a>
 							</li>
 						))
@@ -107,5 +255,7 @@ const posts = (await getCollection('blog')).sort(
 			</section>
 		</main>
 		<Footer />
+		<ScrollToTop />
+		<SmoothScroll />
 	</body>
 </html>
