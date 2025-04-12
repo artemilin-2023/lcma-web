@@ -1,0 +1,308 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    category: string | string[];
+    content: string;
+    slug: string;
+}
+
+const { title, description, category, content, slug } = Astro.props;
+const categories = Array.isArray(category) ? category : [category];
+---
+
+<div class="ascii-card neon-box" data-categories={categories.join(',')} data-category={categories[0]}>
+    <div class="ascii-preview">
+        <pre>{content}</pre>
+    </div>
+    <div class="ascii-info">
+        <h3 class="neon-text">{title}</h3>
+        <p class="ascii-description">{description}</p>
+        <div class="card-footer">
+            <div class="ascii-categories">
+                {categories.map((cat) => (
+                    <span class="ascii-category">{cat}</span>
+                ))}
+            </div>
+            <button class="copy-btn neon-button" data-content={content} aria-label="Копировать ASCII">
+                <span class="copy-text">Копировать</span>
+                <span class="copy-done">Скопировано!</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .ascii-card {
+        display: flex;
+        flex-direction: column;
+        background: rgba(10, 0, 31, 0.8);
+        transition: all 0.4s ease;
+        height: 100%;
+        overflow: hidden;
+        border: 2px solid var(--neon-purple);
+        box-shadow: 0 0 15px rgba(179, 136, 255, 0.3);
+        border-radius: 10px;
+        backdrop-filter: blur(4px);
+    }
+
+    .ascii-preview {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid rgba(179, 136, 255, 0.3);
+    }
+
+    .ascii-preview::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 25px;
+        background: linear-gradient(to bottom, rgba(10, 0, 31, 0.7), transparent);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .ascii-preview::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 25px;
+        background: linear-gradient(to top, rgba(10, 0, 31, 0.7), transparent);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .ascii-preview pre {
+        font-family: monospace;
+        color: var(--neon-pink);
+        text-shadow: 0 0 5px var(--neon-pink);
+        font-size: 16px;
+        margin: 0;
+        white-space: pre;
+        z-index: 0;
+        transform-origin: center center;
+    }
+
+    .ascii-info {
+        padding: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        background: rgba(10, 0, 31, 0.6);
+    }
+
+    .ascii-info h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-family: var(--font-kawaii);
+        font-size: 1.4rem;
+        text-shadow: 0 0 8px var(--neon-purple);
+    }
+
+    .ascii-description {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+        line-height: 1.5;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+    }
+
+    .ascii-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .ascii-category {
+        background: rgba(138, 43, 226, 0.3);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        color: var(--neon-blue);
+        border: 1px solid var(--neon-blue);
+        box-shadow: 0 0 5px var(--neon-blue);
+        letter-spacing: 0.5px;
+    }
+
+    .copy-btn {
+        position: relative;
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+
+    .copy-btn .copy-text {
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .copy-btn .copy-done {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(100%);
+        color: var(--neon-green);
+        transition: transform 0.3s ease;
+    }
+
+    .copy-btn.copied .copy-text {
+        transform: translateY(-150%);
+    }
+
+    .copy-btn.copied .copy-done {
+        transform: translateY(0);
+    }
+
+    .ascii-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px rgba(179, 136, 255, 0.5), 0 0 10px rgba(179, 136, 255, 0.3) inset;
+        border-color: var(--neon-pink);
+    }
+
+    .ascii-card:hover .ascii-preview pre {
+        text-shadow: 0 0 8px var(--neon-pink), 0 0 12px var(--neon-pink);
+    }
+    
+    .ascii-card:hover .ascii-info h3 {
+        color: var(--neon-pink);
+        text-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    @media (max-width: 768px) {
+        .ascii-preview {
+            height: 240px;
+        }
+        
+        .ascii-info h3 {
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .card-footer {
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .ascii-categories {
+            margin-bottom: 0.5rem;
+        }
+
+        .copy-btn {
+            width: 100%;
+        }
+        
+        .ascii-preview {
+            height: 220px;
+        }
+        
+        .ascii-info {
+            padding: 1rem;
+        }
+        
+        .ascii-info h3 {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<script>
+    // Функционал копирования ASCII-арта
+    document.addEventListener('DOMContentLoaded', () => {
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        
+        copyButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const content = button.getAttribute('data-content') || '';
+                
+                try {
+                    await navigator.clipboard.writeText(content);
+                    
+                    // Добавляем класс для анимации
+                    button.classList.add('copied');
+                    
+                    // Убираем класс через 2 секунды
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Ошибка при копировании:', err);
+                }
+            });
+        });
+
+        // Функция для адаптивного масштабирования ASCII-арта в превью
+        function scaleAsciiArt() {
+            document.querySelectorAll('.ascii-preview').forEach(preview => {
+                const container = preview as HTMLElement;
+                const pre = preview.querySelector('pre') as HTMLElement;
+                
+                if (!container || !pre) return;
+                
+                // 1. Сначала полностью сбрасываем все трансформации
+                pre.style.transform = 'none';
+                pre.style.position = 'static';
+                pre.style.left = 'auto';
+                pre.style.top = 'auto';
+                pre.style.maxWidth = 'none';
+                pre.style.maxHeight = 'none';
+                
+                // Принудительно вызываем перерасчет стилей
+                void pre.offsetHeight;
+                
+                // 2. Теперь измеряем исходные размеры
+                const containerWidth = container.clientWidth - 60;
+                const containerHeight = container.clientHeight - 60;
+                const contentWidth = pre.scrollWidth;
+                const contentHeight = pre.scrollHeight;
+                
+                // 3. Вычисляем коэффициент масштабирования
+                const scaleX = containerWidth / contentWidth;
+                const scaleY = containerHeight / contentHeight;
+                const scale = Math.min(scaleX, scaleY, 0.95);
+                
+                // 4. Теперь устанавливаем позиционирование и трансформацию
+                pre.style.position = 'absolute';
+                pre.style.left = '50%';
+                pre.style.top = '50%';
+                pre.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                
+                // Добавляем подсказку о масштабировании
+                if (scale < 0.8) {
+                    container.setAttribute('title', 'Нажмите, чтобы увидеть в полном размере');
+                    container.style.cursor = 'zoom-in';
+                }
+            });
+        }
+        
+        // Запускаем масштабирование при загрузке страницы
+        scaleAsciiArt();
+        
+        // Перезапускаем при изменении размера окна
+        window.addEventListener('resize', scaleAsciiArt);
+    });
+</script> 

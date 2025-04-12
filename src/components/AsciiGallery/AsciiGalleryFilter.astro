@@ -1,0 +1,209 @@
+---
+interface Props {
+    categories: string[];
+    activeCategory?: string;
+}
+
+const { categories, activeCategory = 'all' } = Astro.props;
+---
+
+<div class="ascii-filter">
+    <h2 class="filter-title">Категории</h2>
+    <div class="filter-buttons">
+        <button 
+            class={`filter-btn neon-button ${activeCategory === 'all' ? 'active' : ''}`} 
+            data-category="all"
+            aria-pressed={activeCategory === 'all' ? 'true' : 'false'}
+        >
+            Все
+        </button>
+        
+        {categories.map(category => (
+            <button 
+                class={`filter-btn neon-button ${activeCategory === category ? 'active' : ''}`} 
+                data-category={category}
+                aria-pressed={activeCategory === category ? 'true' : 'false'}
+            >
+                {category}
+            </button>
+        ))}
+    </div>
+</div>
+
+<style>
+    .ascii-filter {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .filter-title {
+        font-family: var(--font-heading);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: var(--neon-blue);
+        text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    .filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+
+    .filter-btn {
+        background-color: transparent;
+        border: 2px solid var(--neon-purple);
+        color: #fff;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+        background-color: rgba(138, 43, 226, 0.2);
+        box-shadow: 0 0 10px var(--neon-purple), inset 0 0 8px var(--neon-purple);
+    }
+
+    .filter-btn.active {
+        background-color: rgba(138, 43, 226, 0.3);
+        border-color: var(--neon-pink);
+        box-shadow: 0 0 8px var(--neon-pink), inset 0 0 5px var(--neon-pink);
+        color: var(--neon-pink);
+    }
+
+    @media (max-width: 768px) {
+        .filter-buttons {
+            gap: 0.4rem;
+        }
+
+        .filter-btn {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .filter-buttons {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .filter-btn {
+            width: 100%;
+            max-width: 200px;
+        }
+    }
+</style>
+
+<script>
+    // Фильтрация карточек по категориям
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const asciiCardWrappers = document.querySelectorAll('.ascii-card-wrapper');
+        const container = document.querySelector('.ascii-cards-container');
+        
+        // Флаг для отслеживания состояния анимации
+        let isAnimating = false;
+        
+        // Инициализация карточек
+        asciiCardWrappers.forEach(wrapper => {
+            if (wrapper instanceof HTMLElement) {
+                wrapper.style.opacity = '0';
+                wrapper.style.transform = 'translateY(20px) scale(0.95)';
+                
+                // Небольшая задержка перед стартовой анимацией
+                setTimeout(() => {
+                    wrapper.style.opacity = '1';
+                    wrapper.style.transform = 'translateY(0) scale(1)';
+                }, 100);
+            }
+        });
+        
+        // Обработчик для кнопок фильтрации
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.getAttribute('data-category');
+                
+                // Если анимация уже запущена, игнорируем клик
+                if (isAnimating) return;
+                // Устанавливаем флаг анимации
+                isAnimating = true;
+                
+                // Обновляем активную кнопку
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
+                
+                button.classList.add('active');
+                button.setAttribute('aria-pressed', 'true');
+                
+                // Создаем массив видимых карточек
+                const visibleCards: HTMLElement[] = [];
+                const hiddenCards: HTMLElement[] = [];
+                
+                // Распределяем карточки на видимые и скрытые
+                asciiCardWrappers.forEach(wrapper => {
+                    if (!(wrapper instanceof HTMLElement)) return;
+                    
+                    // Получаем все категории карточки
+                    const cardElement = wrapper.querySelector('.ascii-card');
+                    const cardCategories = cardElement?.getAttribute('data-categories')?.split(',') || [];
+                    const primaryCategory = cardElement?.getAttribute('data-category') || '';
+                    
+                    // Карточка видима, если выбраны все категории или карточка содержит выбранную категорию
+                    const shouldBeVisible = category === 'all' || 
+                                           (category === primaryCategory) || 
+                                           cardCategories.includes(category || '');
+                    
+                    if (shouldBeVisible) {
+                        visibleCards.push(wrapper);
+                    } else {
+                        hiddenCards.push(wrapper);
+                    }
+                });
+                
+                // Запускаем анимацию скрытия
+                hiddenCards.forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(10px) scale(0.95)';
+                });
+                
+                // Ждем завершения анимации скрытия
+                setTimeout(() => {
+                    // Скрываем невидимые карточки
+                    hiddenCards.forEach(card => {
+                        card.style.display = 'none';
+                    });
+                    
+                    // Позволяем видимым карточкам отображаться
+                    visibleCards.forEach((card, index) => {
+                        card.style.display = '';
+                        
+                        // Запускаем анимацию появления с задержкой
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0) scale(1)';
+                            
+                            // Если это последняя карточка, снимаем флаг анимации
+                            if (index === visibleCards.length - 1) {
+                                setTimeout(() => {
+                                    isAnimating = false;
+                                }, 300); // Ждем завершения анимации появления
+                            }
+                        }, 30 * index); // Задержка для последовательного появления
+                    });
+                    
+                    // Если нет видимых карточек, снимаем флаг анимации
+                    if (visibleCards.length === 0) {
+                        isAnimating = false;
+                    }
+                }, 300); // Ждем завершения анимации скрытия
+            });
+        });
+    });
+</script> 

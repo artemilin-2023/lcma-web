@@ -1,0 +1,458 @@
+<div class="ascii-modal" id="ascii-modal">
+    <div class="modal-content neon-box">
+        <button class="close-modal" aria-label="Закрыть">&times;</button>
+        <h3 class="modal-title gradient-text"></h3>
+        <div class="modal-ascii">
+            <span class="scale-indicator">Масштаб: 100%</span>
+            <pre></pre>
+            <div class="scale-controls">
+                <button class="scale-btn scale-minus" aria-label="Уменьшить">-</button>
+                <button class="scale-btn scale-reset" aria-label="Сбросить">⟳</button>
+                <button class="scale-btn scale-plus" aria-label="Увеличить">+</button>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="copy-modal-btn neon-button" aria-label="Копировать ASCII в буфер обмена">
+                <span class="copy-text">Копировать</span>
+                <span class="copy-done">Скопировано!</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .ascii-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .ascii-modal.active {
+        display: flex;
+        opacity: 1;
+    }
+
+    .modal-content {
+        background: rgba(10, 0, 31, 0.95);
+        width: 95%;
+        max-width: 1000px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        padding: 2.5rem;
+        animation: modalAppear 0.3s ease-out;
+        border-radius: 8px;
+    }
+
+    @keyframes modalAppear {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .close-modal {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        font-size: 2rem;
+        background: transparent;
+        border: none;
+        color: var(--neon-pink);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .close-modal:hover {
+        color: var(--neon-purple);
+        text-shadow: 0 0 10px var(--neon-purple);
+        transform: rotate(90deg);
+    }
+
+    .modal-title {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        padding-right: 2rem;
+    }
+
+    .modal-ascii {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        max-height: 60vh;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-ascii pre {
+        font-family: monospace;
+        color: var(--neon-pink);
+        text-shadow: 0 0 8px var(--neon-pink);
+        font-size: 18px;
+        margin: 0;
+        display: inline-block;
+        text-align: left;
+        white-space: pre;
+        transform-origin: center center;
+        transform: scale(1);
+        transition: transform 0.3s ease;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .scale-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        color: var(--neon-blue);
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        border: 1px solid var(--neon-blue);
+        box-shadow: 0 0 5px var(--neon-blue);
+        z-index: 5;
+    }
+
+    .scale-controls {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        gap: 5px;
+        z-index: 5;
+    }
+
+    .scale-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(10, 0, 31, 0.8);
+        border: 1px solid var(--neon-purple);
+        color: var(--neon-purple);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 0 5px var(--neon-purple);
+        transition: all 0.2s ease;
+        font-size: 1.2rem;
+        padding: 0;
+        line-height: 1;
+    }
+
+    .scale-btn:hover {
+        background: rgba(138, 43, 226, 0.3);
+        transform: scale(1.1);
+    }
+
+    .scale-btn:active {
+        transform: scale(0.95);
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+    }
+
+    .copy-modal-btn {
+        position: relative;
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+        overflow: hidden;
+    }
+
+    .copy-modal-btn .copy-text {
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .copy-modal-btn .copy-done {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(100%);
+        color: var(--neon-green);
+        transition: transform 0.3s ease;
+    }
+
+    .copy-modal-btn.copied .copy-text {
+        transform: translateY(-150%);
+    }
+
+    .copy-modal-btn.copied .copy-done {
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        .modal-content {
+            padding: 1.5rem;
+            width: 98%;
+        }
+
+        .modal-ascii {
+            padding: 1.5rem;
+            max-height: 50vh;
+        }
+        
+        .modal-ascii pre {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .modal-content {
+            padding: 1.2rem;
+            width: 99%;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+        }
+
+        .modal-ascii {
+            padding: 1.2rem;
+            max-height: 40vh;
+        }
+        
+        .modal-ascii pre {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<script>
+    let currentAsciiContent = '';
+    // Запоминаем позицию скролла
+    let scrollPosition = 0;
+    // Добавляем интерфейс для window с дополнительным свойством
+    interface CustomWindow extends Window {
+        scaleTimeout?: ReturnType<typeof setTimeout>;
+    }
+    declare const window: CustomWindow;
+
+    // Функция для блокировки прокрутки страницы
+    function lockScroll() {
+        // Сохраняем текущую позицию прокрутки
+        scrollPosition = window.pageYOffset;
+        // Фиксируем body в текущей позиции
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.style.width = '100%';
+    }
+
+    // Функция для разблокировки прокрутки страницы
+    function unlockScroll() {
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('position');
+        document.body.style.removeProperty('top');
+        document.body.style.removeProperty('width');
+        // Восстанавливаем позицию прокрутки
+        window.scrollTo(0, scrollPosition);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('ascii-modal');
+        const closeButton = modal?.querySelector('.close-modal');
+        const copyButton = modal?.querySelector('.copy-modal-btn');
+        const modalAscii = modal?.querySelector('.modal-ascii');
+        const preElement = modalAscii?.querySelector('pre');
+        const scaleIndicator = modalAscii?.querySelector('.scale-indicator') as HTMLElement | null;
+        const scalePlus = modalAscii?.querySelector('.scale-plus');
+        const scaleMinus = modalAscii?.querySelector('.scale-minus');
+        const scaleReset = modalAscii?.querySelector('.scale-reset');
+        
+        // Текущий масштаб
+        let currentScale = 1;
+        // Минимальный и максимальный масштаб
+        const minScale = 0.3;
+        const maxScale = 2.0;
+        // Шаг изменения масштаба
+        const scaleStep = 0.1;
+        
+        // Функция для масштабирования ASCII-арта в модальном окне
+        function scaleModalAsciiArt(scale: number) {
+            if (!preElement || !(preElement instanceof HTMLElement)) return;
+            
+            // Ограничиваем масштаб
+            currentScale = Math.max(minScale, Math.min(maxScale, scale));
+            
+            // Применяем масштаб
+            preElement.style.transform = `scale(${currentScale})`;
+            
+            // Обновляем индикатор
+            if (scaleIndicator) {
+                scaleIndicator.textContent = `Масштаб: ${Math.round(currentScale * 100)}%`;
+                scaleIndicator.style.opacity = '1';
+                
+                // Скрываем индикатор через 2 секунды
+                if (window.scaleTimeout) {
+                    clearTimeout(window.scaleTimeout);
+                }
+                window.scaleTimeout = setTimeout(() => {
+                    if (scaleIndicator) {
+                        scaleIndicator.style.opacity = '0';
+                    }
+                }, 2000);
+            }
+        }
+        
+        // Функция для автоматического масштабирования ASCII-арта
+        function autoScaleModalAsciiArt() {
+            if (!modalAscii || !preElement || !(preElement instanceof HTMLElement) || !(modalAscii instanceof HTMLElement)) return;
+            
+            // Сбрасываем масштаб для измерения
+            preElement.style.transform = 'scale(1)';
+            currentScale = 1;
+            
+            // Получаем размеры
+            const containerWidth = modalAscii.clientWidth - 80; // Вычитаем padding
+            const containerHeight = modalAscii.clientHeight - 80;
+            const contentWidth = preElement.scrollWidth;
+            const contentHeight = preElement.scrollHeight;
+            
+            // Вычисляем коэффициент масштабирования
+            const scaleX = containerWidth / contentWidth;
+            const scaleY = containerHeight / contentHeight;
+            const scale = Math.min(scaleX, scaleY, 1); // Ограничиваем максимальным масштабом 1
+            
+            // Применяем масштабирование в любом случае для гарантии центрирования
+            currentScale = scale;
+            scaleModalAsciiArt(scale);
+            
+            // Центрируем содержимое
+            preElement.style.transformOrigin = 'center center';
+        }
+        
+        // Обработчики кнопок масштабирования
+        scalePlus?.addEventListener('click', () => {
+            scaleModalAsciiArt(currentScale + scaleStep);
+        });
+        
+        scaleMinus?.addEventListener('click', () => {
+            scaleModalAsciiArt(currentScale - scaleStep);
+        });
+        
+        scaleReset?.addEventListener('click', () => {
+            autoScaleModalAsciiArt();
+        });
+        
+        // Закрытие модального окна при нажатии на кнопку
+        closeButton?.addEventListener('click', () => {
+            if (modal) {
+                modal.classList.remove('active');
+                unlockScroll();
+            }
+        });
+        
+        // Закрытие модального окна при клике вне его содержимого
+        modal?.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                unlockScroll();
+            }
+        });
+        
+        // Закрытие модального окна при нажатии Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal?.classList.contains('active')) {
+                modal.classList.remove('active');
+                unlockScroll();
+            }
+        });
+        
+        // Копирование ASCII-арта из модального окна
+        copyButton?.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(currentAsciiContent);
+                
+                // Добавляем класс для анимации
+                copyButton.classList.add('copied');
+                
+                // Убираем класс через 2 секунды
+                setTimeout(() => {
+                    copyButton.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Ошибка при копировании:', err);
+            }
+        });
+        
+        // Открытие модального окна при клике на карточку
+        const asciiCards = document.querySelectorAll('.ascii-card');
+        
+        asciiCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Проверяем, был ли клик на кнопке копирования
+                const target = e.target as HTMLElement;
+                if (target && target.closest('.copy-btn')) {
+                    return;
+                }
+                
+                const title = card.querySelector('h3')?.textContent || '';
+                const content = card.querySelector('pre')?.textContent || '';
+                
+                // Заполняем модальное окно данными
+                if (modal) {
+                    const modalTitle = modal.querySelector('.modal-title');
+                    const modalContent = modal.querySelector('.modal-ascii pre');
+                    
+                    if (modalTitle) modalTitle.textContent = title;
+                    if (modalContent) modalContent.textContent = content;
+                    
+                    currentAsciiContent = content;
+                    
+                    // Открываем модальное окно
+                    modal.classList.add('active');
+                    // Блокируем прокрутку фоновой страницы
+                    lockScroll();
+                    
+                    // Автоматически масштабируем ASCII-арт после открытия модального окна
+                    setTimeout(autoScaleModalAsciiArt, 50);
+                }
+            });
+        });
+        
+        // Перемасштабируем при изменении размера окна
+        window.addEventListener('resize', () => {
+            if (modal?.classList.contains('active')) {
+                autoScaleModalAsciiArt();
+            }
+        });
+    });
+</script> 

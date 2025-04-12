@@ -1,0 +1,269 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import KawaiiElements from '../components/KawaiiElements.astro';
+import AsciiGalleryCard from '../components/AsciiGallery/AsciiGalleryCard.astro';
+import AsciiGalleryFilter from '../components/AsciiGallery/AsciiGalleryFilter.astro';
+import AsciiGalleryModal from '../components/AsciiGallery/AsciiGalleryModal.astro';
+import { getCollection } from 'astro:content';
+
+// Метаданные страницы
+const pageTitle = "ASCII-арт Галерея";
+const description = "Коллекция ASCII-арта с возможностью копирования и фильтрации по категориям.";
+
+// Получаем все ASCII-арты из коллекции
+const asciiCollection = await getCollection('ascii');
+
+// Получаем все уникальные категории
+const categories = [
+    ...new Set(
+        asciiCollection.flatMap(item => 
+            Array.isArray(item.data.category) 
+                ? item.data.category 
+                : [item.data.category]
+        )
+    )
+];
+
+// Функция для очистки содержимого ASCII-арта от маркеров кода ```
+function cleanAsciiContent(content: string): string {
+    // Регулярное выражение для извлечения содержимого между маркерами кода
+    const match = content.match(/```(?:\w*\n|\n)([\s\S]*?)```/);
+    
+    // Если нашли соответствие, возвращаем содержимое между маркерами
+    if (match && match[1]) {
+        return match[1].trim();
+    }
+    
+    // В случае ошибки или нестандартного формата, делаем максимально гибкую очистку
+    return content
+        .replace(/^```[\s\S]*?\n/, "") // Удаляем начальный маркер с любыми спецификаторами
+        .replace(/\n```\s*$/, "")       // Удаляем конечный маркер в конце
+        .replace(/```\s*$/, "")         // Удаляем конечный маркер без переноса                     // Удаляем лишние пробелы
+}
+
+// Сортируем по дате публикации (новые сначала)
+const sortedAsciiArts = asciiCollection.sort((a, b) => 
+    b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+---
+
+<html lang="ru">
+    <head>
+        <BaseHead title={pageTitle} description={description} />
+    </head>
+    <body>
+        <Header />
+        
+        <div class="page-wrapper">
+            <main class="gallery-main">
+                <section class="ascii-gallery-hero">
+                    <h1 class="gradient-text">{pageTitle}</h1>
+                    <p class="subtitle">Коллекция ASCII-арта в кавайном неоновом стиле. Выбирай, копируй и используй!</p>
+                </section>
+                
+                <section class="ascii-gallery-content">
+                    <AsciiGalleryFilter categories={categories} />
+                    
+                    <div class="ascii-cards-container">
+                        {sortedAsciiArts.map(ascii => {
+                            const cleanedContent = cleanAsciiContent(ascii.body || '');
+                            const primaryCategory = Array.isArray(ascii.data.category) 
+                                ? ascii.data.category[0] 
+                                : ascii.data.category;
+                            
+                            return (
+                                <div class="ascii-card-wrapper" data-category={primaryCategory}>
+                                    <AsciiGalleryCard
+                                        title={ascii.data.title}
+                                        description={ascii.data.description}
+                                        category={ascii.data.category}
+                                        content={cleanedContent}
+                                        slug={ascii.id}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                    
+                    {/* Добавляем пустые элементы, чтобы grid работал правильно с flexbox */}
+                    <div class="ascii-grid-filler" aria-hidden="true"></div>
+                    <div class="ascii-grid-filler" aria-hidden="true"></div>
+                    <div class="ascii-grid-filler" aria-hidden="true"></div>
+                </section>
+                
+                {/* Модальное окно для просмотра ASCII-арта */}
+                <AsciiGalleryModal />
+            </main>
+            
+            <KawaiiElements count={5} />
+            <ScrollToTop />
+            <Footer />
+        </div>
+    </body>
+</html>
+
+<style>
+    .ascii-gallery-hero {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+        padding: 2rem 1rem; /* Добавляем отступы для заголовка */
+    }
+    
+    .ascii-gallery-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .ascii-gallery-hero .subtitle {
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.9;
+        font-size: 1.2rem;
+    }
+    
+    .ascii-gallery-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 1rem; /* Добавляем горизонтальные отступы */
+    }
+    
+    .ascii-cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 2.5rem; /* Увеличиваем отступы между карточками */
+        margin-bottom: 3rem; /* Увеличиваем отступ снизу */
+        min-height: 300px;
+        position: relative;
+        transition: height 0.5s ease;
+        will-change: contents;
+    }
+    
+    .ascii-card-wrapper {
+        height: 100%;
+        transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Раздельные переходы с лучшим эффектом упругости */
+        opacity: 1; /* Начинаем с непрозрачных элементов, анимацию будем контролировать через скрипт */
+        transform: scale(1) translateY(0); /* Сброс начальной трансформации */
+        transform-origin: center center; /* Центр трансформации */
+        will-change: transform, opacity; /* Оптимизация производительности */
+    }
+    
+    /* Классы для анимации появления/исчезновения */
+    .ascii-card-wrapper.fade-in {
+        animation: fadeInAnimation 0.6s forwards;
+    }
+    
+    .ascii-card-wrapper.fade-out {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+        70% {
+            opacity: 1;
+            transform: translateY(-5px) scale(1.02); /* Небольшой эффект отскока */
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    
+    /* Стилизация пустой галереи */
+    .ascii-cards-container:empty::after {
+        content: "Нет ASCII-арта в выбранной категории";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--neon-purple);
+        text-shadow: 0 0 8px var(--neon-purple);
+        font-family: var(--font-kawaii);
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+    
+    .ascii-grid-filler {
+        grid-column: auto;
+        height: 0;
+    }
+    
+    /* Добавляем дополнительные стили для улучшения внешнего вида */
+    .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: linear-gradient(135deg, rgba(24, 10, 52, 0.7) 0%, rgba(10, 10, 40, 0.8) 100%); /* Добавляем фоновый градиент */
+        position: relative; /* Для правильного позиционирования фоновых элементов */
+    }
+    
+    /* Улучшаем стиль заголовка галереи */
+    .ascii-gallery-hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--neon-purple);
+    }
+    
+    @media (max-width: 768px) {
+        .ascii-gallery-hero {
+            padding: 1.5rem 1rem;
+        }
+        
+        .ascii-gallery-hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .ascii-gallery-hero .subtitle {
+            font-size: 1.1rem;
+        }
+        
+        .ascii-cards-container {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .ascii-gallery-hero {
+            padding: 1rem;
+        }
+        
+        .ascii-gallery-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .ascii-gallery-hero .subtitle {
+            font-size: 1rem;
+        }
+        
+        .ascii-cards-container {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+    }
+    
+    .gallery-main {
+        flex: 1 0 auto;
+        min-height: 0; /* Сбрасываем ранее установленную min-height */
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-bottom: 2rem; /* Добавляем отступ перед футером */
+    }
+</style> 
